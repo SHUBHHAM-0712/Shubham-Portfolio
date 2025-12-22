@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card.jsx";
 import { Code2, Database, Globe, Cpu, Wrench, Brain } from "lucide-react";
 
 export default function Skills() {

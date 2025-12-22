@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.jsx";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);

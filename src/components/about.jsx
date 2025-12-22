@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card.jsx";
 import { User, Code, Trophy, Zap } from "lucide-react";
 
 export default function About() {
