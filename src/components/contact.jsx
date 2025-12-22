@@ -38,14 +38,26 @@ export default function Contact() {
       icon: Github,
       href: "https://github.com/SHUBHHAM-0712",
       label: "GitHub",
+      username: "@SHUBHHAM-0712",
     },
     {
       icon: Linkedin,
       href: "https://www.linkedin.com/in/ramoliya-shubham-288707329",
       label: "LinkedIn",
+      username: "@ramoliya-shubham",
     },
-    { icon: Twitter, href: "https://x.com/SHUBH_071205", label: "Twitter" },
-    { icon: Mail, href: "mailto:ramoliya.shubham07@gmail.com", label: "Email" },
+    {
+      icon: Twitter,
+      href: "https://x.com/SHUBH_071205",
+      label: "Twitter",
+      username: "@SHUBH_071205",
+    },
+    {
+      icon: Mail,
+      href: "mailto:ramoliya.shubham07@gmail.com",
+      label: "Email",
+      username: "ramoliya.shubham07@gmail.com",
+    },
   ];
 
   return (
@@ -135,12 +147,19 @@ export default function Contact() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-primary/20 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(147,51,234,0.3)] transition-all group"
+                    className="flex items-center justify-between gap-3 p-3 rounded-lg bg-background/50 border border-primary/20 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(147,51,234,0.3)] transition-all group"
                   >
-                    <social.icon className="h-5 w-5 text-primary group-hover:text-secondary transition-colors" />
-                    <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                      {social.label}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <social.icon className="h-5 w-5 text-primary group-hover:text-secondary transition-colors" />
+                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                        {social.label}
+                      </span>
+                    </div>
+                    {social.username && (
+                      <span className="text-xs md:text-sm text-muted-foreground/80 group-hover:text-secondary transition-colors">
+                        {social.username}
+                      </span>
+                    )}
                   </a>
                 ))}
               </CardContent>

@@ -128,4 +128,10 @@
     position: relative;
     isolation: isolate;
   }
+
+  button,
+  [data-slot="button"],
+  [role="button"] {
+    cursor: pointer;
+  }
 }
