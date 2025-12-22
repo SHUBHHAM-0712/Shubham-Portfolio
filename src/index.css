@@ -94,9 +94,17 @@
     @apply border-border outline-ring/50;
   }
 
+  html,
   body {
     @apply bg-background text-foreground font-sans antialiased;
     min-height: 100vh;
+    -ms-overflow-style: none; /* IE and old Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0; /* Hide vertical scrollbar (Chrome, Safari, Edge) */
   }
 
   body::before {

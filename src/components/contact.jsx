@@ -34,17 +34,25 @@ export default function Contact() {
   };
 
   const socials = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:shubham@example.com", label: "Email" },
+    {
+      icon: Github,
+      href: "https://github.com/SHUBHHAM-0712",
+      label: "GitHub",
+    },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/in/ramoliya-shubham-288707329",
+      label: "LinkedIn",
+    },
+    { icon: Twitter, href: "https://x.com/SHUBH_071205", label: "Twitter" },
+    { icon: Mail, href: "mailto:ramoliya.shubham07@gmail.com", label: "Email" },
   ];
 
   return (
     <section id="contact" className="relative py-20 px-4">
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
-          <span className="text-primary">FINAL</span> BOSS
+          <span className="text-primary">CONNECT</span> WITH ME
         </h2>
         <p className="text-center text-muted-foreground mb-12">
           {"> Ready to connect? Send a message"}

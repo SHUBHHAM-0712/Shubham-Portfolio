@@ -3,10 +3,26 @@ import { User, Code, Trophy, Zap } from "lucide-react";
 
 export default function About() {
   const stats = [
-    { icon: User, label: "Level", value: "Final Year B.Tech Student" },
-    { icon: Code, label: "Class", value: "Full-Stack Developer" },
-    { icon: Trophy, label: "XP", value: "Multiple Projects & Internships" },
-    { icon: Zap, label: "Status", value: "Ready for New Quests" },
+    {
+      icon: User,
+      label: "Level",
+      value: "Pre-Final Year B.Tech Student",
+    },
+    {
+      icon: Code,
+      label: "Class",
+      value: "Full-Stack Developer / Software Engineer",
+    },
+    {
+      icon: Trophy,
+      label: "XP",
+      value: "Multiple Projects & Internships",
+    },
+    {
+      icon: Zap,
+      label: "Status",
+      value: "Ready for New Quests",
+    },
   ];
 
   return (
@@ -25,7 +41,7 @@ export default function About() {
               <div className="relative inline-block mb-4">
                 <div className="absolute -inset-2 bg-gradient-to-r from-primary via-secondary to-accent rounded-lg blur opacity-50 animate-pulse"></div>
                 <img
-                  src="/image.png"
+                  src="/shubham.JPG"
                   alt="Shubham Ramoliya"
                   width={180}
                   height={180}
@@ -37,7 +53,7 @@ export default function About() {
                 SHUBHAM RAMOLIYA
               </h3>
               <p className="text-sm text-muted-foreground uppercase tracking-wider">
-                Player ID: #DEV2024
+                Player ID: #202301442
               </p>
             </CardContent>
           </Card>
@@ -62,7 +78,7 @@ export default function About() {
           ))}
         </div>
 
-        <Card className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all">
+        {/* <Card className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all">
           <CardContent className="p-8">
             <h3 className="text-2xl font-bold mb-4 text-primary">
               Player Stats
@@ -119,7 +135,7 @@ export default function About() {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Code2, Database, Globe, Cpu, Wrench, Brain } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Code2, Database, Globe, Cpu, Wrench, Brain } from "lucide-react";
 
 export default function Skills() {
   const skillCategories = [
@@ -26,22 +26,36 @@ export default function Skills() {
     {
       icon: Brain,
       title: "AI / ML",
-      skills: ["Python", "TensorFlow", "Scikit-learn", "OpenAI API"],
+      skills: [
+        "Python",
+        "Langchain",
+        "TensorFlow",
+        "Scikit-learn",
+        "OpenAI API",
+      ],
       color: "neon-green",
     },
     {
       icon: Cpu,
       title: "Programming",
-      skills: ["C++", "Python", "JavaScript", "TypeScript"],
+      skills: ["C", "C++", "Python", "Matlab", "JavaScript", "TypeScript"],
       color: "primary",
     },
     {
       icon: Wrench,
       title: "Tools",
-      skills: ["Git", "Docker", "VS Code", "Postman"],
+      skills: [
+        "Git",
+        "Github",
+        "VS Code",
+        "Figma",
+        "PGadmin",
+        "Jupyter Notebook",
+        "Cursor",
+      ],
       color: "secondary",
     },
-  ]
+  ];
 
   return (
     <section id="skills" className="relative py-20 px-4">
@@ -49,7 +63,9 @@ export default function Skills() {
         <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
           <span className="text-primary">SKILL</span> TREE
         </h2>
-        <p className="text-center text-muted-foreground mb-12">{"> Abilities Unlocked"}</p>
+        <p className="text-center text-muted-foreground mb-12">
+          {"> Abilities Unlocked"}
+        </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, index) => (
@@ -59,8 +75,12 @@ export default function Skills() {
             >
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className={`p-3 bg-${category.color}/10 rounded-lg border border-${category.color}/20`}>
-                    <category.icon className={`h-6 w-6 text-${category.color}`} />
+                  <div
+                    className={`p-3 bg-${category.color}/10 rounded-lg border border-${category.color}/20`}
+                  >
+                    <category.icon
+                      className={`h-6 w-6 text-${category.color}`}
+                    />
                   </div>
                   <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
                     {category.title}
@@ -73,7 +93,9 @@ export default function Skills() {
                       key={i}
                       className="text-sm text-muted-foreground flex items-center gap-2 group-hover:text-foreground transition-colors"
                     >
-                      <span className={`w-1.5 h-1.5 bg-${category.color} rounded-full`} />
+                      <span
+                        className={`w-1.5 h-1.5 bg-${category.color} rounded-full`}
+                      />
                       {skill}
                     </li>
                   ))}
@@ -84,5 +106,5 @@ export default function Skills() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react"
 
 export default function Hero() {
   const [text, setText] = useState("")
-  const fullText = "Full-Stack Developer / Software Engineer"
+  const fullText = "Full-Stack Developer / Software Engineer / Tech Enthusiast"
 
   useEffect(() => {
     let index = 0
