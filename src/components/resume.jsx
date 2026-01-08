@@ -64,20 +64,20 @@ export default function Archievement() {
   const items = isExperience ? experienceItems : educationItems;
 
   return (
-    <section id="archievement" className="relative py-20 px-4 bg-muted/20">
+    <section id="archievement" className="relative py-24 px-4 bg-muted/10">
       <div className="container mx-auto max-w-5xl">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-5xl font-bold mb-3">
-            <span className="text-primary">My</span> Resume
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-6xl font-black mb-4 text-white">
+            <span className="text-primary">CAREER</span> PROFILE
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            My professional journey and qualifications.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+            Professional journey, qualifications, and achievements
           </p>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-10 flex justify-center">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/80 text-primary-foreground px-8 shadow-[0_0_25px_rgba(34,197,235,0.4)]"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 shadow-[0_0_25px_rgba(147,51,234,0.4)] text-base font-semibold"
               asChild
             >
               <a
@@ -85,88 +85,88 @@ export default function Archievement() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ExternalLink className="mr-2 h-4 w-4" /> View Resume
+                <ExternalLink className="mr-2 h-5 w-5" /> VIEW RESUME
               </a>
             </Button>
           </div>
 
-          <div className="mt-10 inline-flex rounded-full bg-background/40 p-1 border border-primary/20">
+          <div className="mt-12 inline-flex rounded-xl bg-background/50 p-1.5 border border-primary/25">
             <button
               type="button"
               onClick={() => setActiveTab("experience")}
-              className={`px-6 py-2 text-sm font-medium rounded-full transition-colors flex items-center gap-2 ${
+              className={`px-7 py-2.5 text-sm font-semibold rounded-lg transition-all flex items-center gap-2.5 ${
                 isExperience
-                  ? "bg-primary text-primary-foreground shadow-[0_0_18px_rgba(34,197,235,0.5)]"
+                  ? "bg-primary text-primary-foreground shadow-[0_0_18px_rgba(147,51,234,0.5)]"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <BriefcaseIcon className="h-4 w-4" /> Experience
+              <BriefcaseIcon className="h-4 w-4" /> EXPERIENCE
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("education")}
-              className={`px-6 py-2 text-sm font-medium rounded-full transition-colors flex items-center gap-2 ${
+              className={`px-7 py-2.5 text-sm font-semibold rounded-lg transition-all flex items-center gap-2.5 ${
                 !isExperience
-                  ? "bg-primary text-primary-foreground shadow-[0_0_18px_rgba(34,197,235,0.5)]"
+                  ? "bg-primary text-primary-foreground shadow-[0_0_18px_rgba(147,51,234,0.5)]"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <GraduationCap className="h-4 w-4" /> Education
+              <GraduationCap className="h-4 w-4" /> EDUCATION
             </button>
           </div>
         </div>
 
-        <div className="mt-8 relative">
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-primary/25" />
+        <div className="mt-12 relative">
+          <div className="absolute left-6 top-0 bottom-0 w-px bg-primary/30" />
 
-          <div className="space-y-8">
+          <div className="space-y-10">
             {items.map((item, index) => (
               <div key={index} className="relative flex gap-6 items-stretch">
                 <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_rgba(34,197,235,0.8)] mt-1" />
+                  <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_rgba(147,51,234,0.8)] mt-1.5" />
                   <div className="flex-1" />
                 </div>
 
                 <div className="mt-[-2px]">
-                  <div className="inline-flex items-center rounded-full bg-primary/10 text-primary px-4 py-1 text-xs mb-3">
-                    <Calendar className="h-3 w-3 mr-2" />
+                  <div className="inline-flex items-center rounded-lg bg-primary/15 text-secondary px-4 py-1.5 text-xs mb-4 font-semibold uppercase tracking-wide">
+                    <Calendar className="h-3.5 w-3.5 mr-2" />
                     {isExperience ? item.period : item.periodLabel}
                   </div>
 
-                  <Card className="bg-card/90 border border-primary/20 shadow-[0_18px_45px_rgba(15,23,42,0.8)]">
-                    <CardContent className="p-6 md:p-7">
-                      <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between mb-3">
-                        <h3 className="text-xl md:text-2xl font-semibold text-foreground">
+                  <Card className="bg-card/70 border border-primary/30 shadow-[0_18px_45px_rgba(15,23,42,0.7)] hover:shadow-[0_20px_50px_rgba(15,23,42,0.8)] transition-shadow">
+                    <CardContent className="p-7 md:p-8">
+                      <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between mb-4">
+                        <h3 className="text-xl md:text-2xl font-bold text-white">
                           {item.title}
                         </h3>
                         {"score" in item && (
-                          <span className="text-xs md:text-sm font-semibold text-emerald-400">
+                          <span className="text-xs md:text-sm font-bold text-emerald-400 uppercase tracking-wider">
                             {item.score}
                           </span>
                         )}
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-3">
-                        <span className="inline-flex items-center gap-1">
-                          <GraduationCap className="h-4 w-4 text-primary" />
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
+                        <span className="inline-flex items-center gap-1.5">
+                          <GraduationCap className="h-4 w-4 text-secondary flex-shrink-0" />
                           {item.organization}
                         </span>
-                        <span className="inline-flex items-center gap-1">
-                          <MapPin className="h-4 w-4 text-primary" />
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="h-4 w-4 text-secondary flex-shrink-0" />
                           {item.location}
                         </span>
                       </div>
 
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-5">
                         {item.description}
                       </p>
 
                       {"tags" in item && item.tags?.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2.5">
                           {item.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/30"
+                              className="text-xs px-4 py-1.5 rounded-lg bg-primary/15 text-primary border border-primary/30 font-medium"
                             >
                               {tag}
                             </span>

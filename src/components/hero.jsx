@@ -7,7 +7,7 @@ import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const [text, setText] = useState("");
-  const fullText = "Full-Stack Developer / Software Engineer / Tech Enthusiast";
+  const fullText = "Data Scientist / Web-Developer / Software Engineer / Tech Enthusiast";
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Hero() {
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
         <div className="mb-4 text-sm text-secondary tracking-widest animate-fadeIn">
-          {"> PLAYER ONE"}
+          {"> PLAYER PROFILE"}
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fadeIn">

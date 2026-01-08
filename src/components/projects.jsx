@@ -49,42 +49,42 @@ export default function Projects() {
       tech: ["C++", "Python"],
       github: "https://github.com/SHUBHHAM-0712/Word-Cloude-Generator",
       live: "#",
-      locked: false,
+      locked: true,
     },
   ];
 
   return (
-    <section id="projects" className="relative py-20 px-4 bg-muted/20">
+    <section id="projects" className="relative py-24 px-4 bg-muted/10">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
-          <span className="text-primary">GAME</span> LEVELS
+        <h2 className="text-4xl md:text-6xl font-black text-center mb-6 text-white">
+          <span className="text-primary">QUEST</span> ARCHIVE
         </h2>
-        <p className="text-center text-muted-foreground mb-12">
-          {"> Select a level to view details"}
+        <p className="text-center text-muted-foreground mb-16 text-sm md:text-base">
+          {"> EMBARK ON EPIC JOURNEYS • EXPLORE LEGENDARY PROJECTS"}
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.4)] group relative overflow-hidden"
+              className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-secondary/50 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.3)] group relative overflow-hidden"
             >
               {project.locked && (
-                <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-10">
+                <div className="absolute inset-0 bg-background/90 backdrop-blur-sm flex items-center justify-center z-10">
                   <Lock className="h-12 w-12 text-muted-foreground" />
                 </div>
               )}
 
               <CardHeader>
-                <div className="text-xs text-secondary mb-2">
+                <div className="text-xs text-secondary mb-3 font-mono uppercase tracking-wider">
                   {project.level}
                 </div>
-                <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
+                <CardTitle className="text-xl md:text-2xl text-white group-hover:text-secondary transition-colors font-bold">
                   {project.title}
                 </CardTitle>
               </CardHeader>
 
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-5">
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {project.description}
                 </p>
@@ -93,18 +93,18 @@ export default function Projects() {
                   {project.tech.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-xs px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full"
+                      className="text-xs px-3 py-1.5 bg-primary/15 text-primary border border-primary/30 rounded-full font-medium"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-3 pt-3">
                   <Button
                     size="sm"
                     variant="outline"
-                    className="border-primary/50 text-primary hover:bg-primary/10 bg-transparent"
+                    className="border-primary/50 text-primary hover:bg-primary/10 bg-transparent text-xs font-semibold"
                     asChild
                   >
                     <a
@@ -118,7 +118,7 @@ export default function Projects() {
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-primary hover:bg-primary/80 text-primary-foreground"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold"
                     asChild
                   >
                     <a

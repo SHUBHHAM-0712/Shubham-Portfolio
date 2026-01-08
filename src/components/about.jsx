@@ -26,34 +26,34 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="relative py-20 px-4">
+    <section id="about" className="relative py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
-          <span className="text-primary">ABOUT</span> ME
+        <h2 className="text-4xl md:text-6xl font-black text-center mb-6 text-white">
+          <span className="text-primary">PLAYER</span> PROFILE
         </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          {"> Character Profile Loaded"}
+        <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+          {"> CHARACTER STATS LOADED • READY FOR ADVENTURE"}
         </p>
 
-        <div className="flex justify-center mb-12">
-          <Card className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.4)] max-w-sm">
+        <div className="flex justify-center mb-16">
+          <Card className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-primary/60 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.3)] max-w-sm">
             <CardContent className="p-8 text-center">
-              <div className="relative inline-block mb-4">
-                <div className="absolute -inset-2 bg-gradient-to-r from-primary via-secondary to-accent rounded-lg blur opacity-50 animate-pulse"></div>
+              <div className="relative inline-block mb-6">
+                <div className="absolute -inset-3 bg-gradient-to-r from-primary via-secondary to-accent rounded-lg blur opacity-40 animate-pulse"></div>
                 <img
                   src="/shubham.JPG"
                   alt="Shubham Ramoliya"
                   width={180}
                   height={180}
-                  className="rounded-lg border-2 border-primary/50 relative shadow-[0_0_20px_rgba(147,51,234,0.5)]"
+                  className="rounded-lg border-2 border-primary/50 relative shadow-[0_0_20px_rgba(147,51,234,0.3)]"
                   loading="lazy"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-primary mb-2">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
                 SHUBHAM RAMOLIYA
               </h3>
-              <p className="text-sm text-muted-foreground uppercase tracking-wider">
-                Player ID: #202301442
+              <p className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider font-mono">
+                Level: Pre-Final Year • XP: +5000
               </p>
             </CardContent>
           </Card>
@@ -63,14 +63,14 @@ export default function About() {
           {stats.map((stat, index) => (
             <Card
               key={index}
-              className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all hover:shadow-[0_0_20px_rgba(147,51,234,0.3)] group"
+              className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-secondary/50 transition-all hover:shadow-[0_0_20px_rgba(147,51,234,0.2)] group"
             >
               <CardContent className="p-6 text-center">
-                <stat.icon className="h-8 w-8 mx-auto mb-3 text-primary group-hover:text-secondary transition-colors" />
-                <div className="text-xs text-muted-foreground uppercase mb-1">
+                <stat.icon className="h-8 w-8 mx-auto mb-4 text-primary group-hover:text-secondary transition-colors" />
+                <div className="text-xs text-muted-foreground uppercase mb-2 font-mono tracking-wider">
                   {stat.label}
                 </div>
-                <div className="text-sm font-bold text-foreground">
+                <div className="text-sm font-semibold text-foreground leading-relaxed">
                   {stat.value}
                 </div>
               </CardContent>

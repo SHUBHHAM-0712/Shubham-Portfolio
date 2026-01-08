@@ -58,45 +58,45 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="relative py-20 px-4">
+    <section id="skills" className="relative py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
-          <span className="text-primary">SKILL</span> TREE
+        <h2 className="text-4xl md:text-6xl font-black text-center mb-6 text-white">
+          <span className="text-primary">SKILL</span> ARSENAL
         </h2>
-        <p className="text-center text-muted-foreground mb-12">
-          {"> Abilities Unlocked"}
+        <p className="text-center text-muted-foreground mb-16 text-sm md:text-base">
+          {"> MASTER CLASS ABILITIES • LEGENDARY POWERS UNLOCKED"}
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, index) => (
             <Card
               key={index}
-              className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all hover:shadow-[0_0_20px_rgba(147,51,234,0.3)] group"
+              className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-secondary/50 transition-all hover:shadow-[0_0_20px_rgba(147,51,234,0.3)] group"
             >
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
+              <CardContent className="p-7">
+                <div className="flex items-center gap-4 mb-6">
                   <div
-                    className={`p-3 bg-${category.color}/10 rounded-lg border border-${category.color}/20`}
+                    className={`p-3 bg-${category.color}/15 rounded-lg border border-${category.color}/30`}
                   >
                     <category.icon
                       className={`h-6 w-6 text-${category.color}`}
                     />
                   </div>
-                  <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-lg font-bold text-white group-hover:text-secondary transition-colors">
                     {category.title}
                   </h3>
                 </div>
 
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {category.skills.map((skill, i) => (
                     <li
                       key={i}
-                      className="text-sm text-muted-foreground flex items-center gap-2 group-hover:text-foreground transition-colors"
+                      className="text-sm text-muted-foreground flex items-center gap-3 group-hover:text-foreground transition-colors leading-relaxed"
                     >
                       <span
-                        className={`w-1.5 h-1.5 bg-${category.color} rounded-full`}
+                        className={`w-2 h-2 bg-${category.color} rounded-full flex-shrink-0`}
                       />
-                      {skill}
+                      <span>{skill}</span>
                     </li>
                   ))}
                 </ul>
