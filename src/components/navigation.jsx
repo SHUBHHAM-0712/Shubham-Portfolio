@@ -1,30 +1,56 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  const navLinks = [
+    { id: "home", label: "HOME" },
+    { id: "about", label: "ABOUT" },
+    { id: "projects", label: "PROJECTS" },
+    { id: "skills", label: "SKILLS" },
+    { id: "resume", label: "RESUME" },
+    { id: "contact", label: "CONTACT" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 50);
+
+      const offset = 120; // navbar height + spacing
+      let current = "home";
+
+      navLinks.forEach((link) => {
+        const el = document.getElementById(link.id);
+        if (el) {
+          const top = el.offsetTop - offset;
+          if (scrollY >= top) {
+            current = link.id;
+          }
+        }
+      });
+
+      setActiveSection(current);
     };
+
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { to: "/", label: "HOME" },
-    { to: "/about", label: "ABOUT" },
-    { to: "/projects", label: "PROJECTS" },
-    { to: "/skills", label: "SKILLS" },
-    { to: "/resume", label: "RESUME" },
-    { to: "/contact", label: "CONTACT" },
-  ];
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    setActiveSection(id);
+  };
 
   return (
     <nav
@@ -36,29 +62,29 @@ export default function Navigation() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link
-            to="/"
-            className="text-xl font-bold text-primary hover:text-secondary transition-colors"
+          <button
+            type="button"
+            onClick={() => scrollToSection("home")}
+            className="text-xl font-bold text-primary hover:text-secondary transition-colors bg-transparent border-0 p-0"
           >
             {"<SR />"}
-          </Link>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className={({ isActive }) =>
-                  `text-sm transition-colors tracking-wider ${
-                    isActive
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-primary"
-                  }`
-                }
+              <button
+                key={link.id}
+                type="button"
+                onClick={() => scrollToSection(link.id)}
+                className={`text-sm transition-colors tracking-wider bg-transparent border-0 ${
+                  activeSection === link.id
+                    ? "text-primary drop-shadow-[0_0_10px_rgba(147,51,234,0.9)]"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
               >
                 {link.label}
-              </NavLink>
+              </button>
             ))}
           </div>
 
@@ -77,20 +103,21 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-primary/20">
             {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className={({ isActive }) =>
-                  `block py-2 text-sm transition-colors ${
-                    isActive
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-primary"
-                  }`
-                }
-                onClick={() => setIsOpen(false)}
+              <button
+                key={link.id}
+                type="button"
+                onClick={() => {
+                  scrollToSection(link.id);
+                  setIsOpen(false);
+                }}
+                className={`block w-full text-left py-2 text-sm transition-colors bg-transparent border-0 ${
+                  activeSection === link.id
+                    ? "text-primary drop-shadow-[0_0_10px_rgba(147,51,234,0.9)]"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
               >
                 {link.label}
-              </NavLink>
+              </button>
             ))}
           </div>
         )}

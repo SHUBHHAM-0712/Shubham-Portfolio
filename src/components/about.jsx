@@ -35,15 +35,15 @@ export default function About() {
           {"> CHARACTER STATS LOADED • READY FOR ADVENTURE"}
         </p>
 
-        <div className="flex justify-center mb-16">
-          <Card className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-primary/60 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.3)] max-w-sm">
-            <CardContent className="p-8 text-center">
+        <div className="flex justify-center mb-16 px-2 sm:px-0">
+          <Card className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-primary/60 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.3)] w-full max-w-sm">
+            <CardContent className="p-6 sm:p-8 text-center">
               <div className="relative inline-block mb-6">
                 <div className="absolute -inset-3 bg-gradient-to-r from-primary via-secondary to-accent rounded-lg blur opacity-40 animate-pulse"></div>
                 <img
-                  src="/shubham.JPG"
+                  src="/shubham2.JPG"
                   alt="Shubham Ramoliya"
-                  width={180}
+                  width={300}
                   height={180}
                   className="rounded-lg border-2 border-primary/50 relative shadow-[0_0_20px_rgba(147,51,234,0.3)]"
                   loading="lazy"

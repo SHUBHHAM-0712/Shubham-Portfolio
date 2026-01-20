@@ -64,7 +64,7 @@ export default function Archievement() {
   const items = isExperience ? experienceItems : educationItems;
 
   return (
-    <section id="archievement" className="relative py-24 px-4 bg-muted/10">
+    <section id="resume" className="relative py-24 px-4 bg-muted/10">
       <div className="container mx-auto max-w-5xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-6xl font-black mb-4 text-white">

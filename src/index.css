@@ -46,12 +46,15 @@
 
 @theme inline {
   /* Readable gaming font stack */
-  --font-sans: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+  --font-sans:
+    "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-heading:
+    "Orbitron", "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
-  --font-heading: "Orbitron", "Space Grotesk", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono:
+    "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -101,7 +104,7 @@
 
   html,
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased scroll-smooth;
     min-height: 100vh;
     -ms-overflow-style: none; /* IE and old Edge */
     scrollbar-width: none; /* Firefox */
@@ -141,10 +144,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(
-        rgba(147, 51, 234, 0.1) 1px,
-        transparent 1px
-      ),
+    background-image:
+      linear-gradient(rgba(147, 51, 234, 0.1) 1px, transparent 1px),
       linear-gradient(90deg, rgba(147, 51, 234, 0.1) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
