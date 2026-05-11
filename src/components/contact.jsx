@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,7 +9,50 @@ import { Button } from "@/components/ui/button.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Textarea } from "@/components/ui/textarea.jsx";
 import { Github, Linkedin, Mail, Twitter, Phone, MapPin } from "lucide-react";
-import { sendContactMessage } from "@/services/contactService";
+import { sendContactMessage, sendOtp } from "@/services/contactService";
+
+const RATE_LIMIT_STORAGE_KEY = "contact_form_timestamps";
+const RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
+const MAX_MESSAGES_PER_WINDOW = 3;
+const OTP_RESEND_SECONDS = 60;
+
+// Validates email format before triggering EmailJS.
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  return emailRegex.test(String(email).trim());
+}
+
+// Keeps at most 3 successful sends in a 5-minute rolling window.
+function checkRateLimit() {
+  const now = Date.now();
+  let timestamps = [];
+
+  try {
+    const stored = JSON.parse(
+      localStorage.getItem(RATE_LIMIT_STORAGE_KEY) || "[]",
+    );
+    if (Array.isArray(stored)) {
+      timestamps = stored;
+    }
+  } catch {
+    timestamps = [];
+  }
+
+  const recentTimestamps = timestamps.filter(
+    (timestamp) =>
+      Number.isFinite(timestamp) && now - timestamp < RATE_LIMIT_WINDOW_MS,
+  );
+
+  localStorage.setItem(
+    RATE_LIMIT_STORAGE_KEY,
+    JSON.stringify(recentTimestamps),
+  );
+
+  return {
+    allowed: recentTimestamps.length < MAX_MESSAGES_PER_WINDOW,
+    recentTimestamps,
+  };
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -18,25 +61,132 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+  const [otp, setOtp] = useState("");
+  const [otpStatus, setOtpStatus] = useState("");
+  const [otpErrorMessage, setOtpErrorMessage] = useState("");
+  const [otpCooldown, setOtpCooldown] = useState(0);
   const [status, setStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const canSubmit =
+    status !== "sending" && otpStatus === "sent" && otp.trim().length === 6;
+
+  useEffect(() => {
+    if (otpCooldown <= 0) {
+      return undefined;
+    }
+
+    const timer = setInterval(() => {
+      setOtpCooldown((prev) => Math.max(prev - 1, 0));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [otpCooldown]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+
+    if (!validateEmail(formData.email)) {
+      setStatus("error");
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+
+    if (otpStatus !== "sent") {
+      setOtpStatus("error");
+      setOtpErrorMessage("Send OTP first, then enter the 6-digit code.");
+      return;
+    }
+
+    if (!otp || otp.trim().length !== 6) {
+      setOtpStatus("error");
+      setOtpErrorMessage("Please enter the 6-digit OTP sent to your email.");
+      return;
+    }
+
+    const rateLimitResult = checkRateLimit();
+    if (!rateLimitResult.allowed) {
+      setStatus("error");
+      setErrorMessage(
+        "You have sent too many messages. Please try again later.",
+      );
+      return;
+    }
+
     setStatus("sending");
+    setOtpErrorMessage("");
 
     try {
-      await sendContactMessage(formData);
+      await sendContactMessage({ ...formData, otp: otp.trim() });
+
+      localStorage.setItem(
+        RATE_LIMIT_STORAGE_KEY,
+        JSON.stringify([...rateLimitResult.recentTimestamps, Date.now()]),
+      );
+
       setStatus("success");
+      setErrorMessage("");
       setFormData({ name: "", email: "", subject: "", message: "" });
+      setOtp("");
+
       setTimeout(() => setStatus(""), 3000);
     } catch (error) {
-      console.log("[react] Contact form error:", error);
+      const message =
+        error?.message || "Failed to send message. Please try again.";
+      if (message.toLowerCase().includes("otp")) {
+        setOtpStatus("error");
+        setOtpErrorMessage("OTP expired or invalid. Please request a new OTP.");
+        setStatus("");
+        return;
+      }
+
       setStatus("error");
+      setErrorMessage(message);
     }
   };
 
   const handleChange = (e) => {
+    if (status === "error") {
+      setStatus("");
+    }
+    setErrorMessage("");
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleOtpChange = (e) => {
+    if (otpStatus === "error") {
+      setOtpStatus("");
+    }
+    setOtpErrorMessage("");
+    const value = e.target.value.replace(/\D/g, "").slice(0, 6);
+    setOtp(value);
+  };
+
+  const handleSendOtp = async () => {
+    setOtpErrorMessage("");
+
+    if (!validateEmail(formData.email)) {
+      setOtpStatus("error");
+      setOtpErrorMessage("Please enter a valid email address first.");
+      return;
+    }
+
+    setOtpStatus("sending");
+
+    try {
+      await sendOtp(formData.email);
+      setOtpStatus("sent");
+      setOtpErrorMessage("");
+      setOtpCooldown(OTP_RESEND_SECONDS);
+    } catch (error) {
+      setOtpStatus("error");
+      const message = error?.message || "Failed to send OTP.";
+      setOtpErrorMessage(message);
+
+      if (Number.isFinite(error?.retryAfterMs) && error.retryAfterMs > 0) {
+        setOtpCooldown(Math.ceil(error.retryAfterMs / 1000));
+      }
+    }
   };
 
   const socials = [
@@ -67,165 +217,184 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="relative py-24 px-4">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(147,51,234,0.2),_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(34,211,238,0.15),_transparent_55%)] opacity-50" />
+    <section id="contact" className="section-wrap pb-10">
+      <div className="mb-6">
+        <span className="comic-chip chip-hover reveal-up">Get In Touch</span>
+      </div>
 
-      <div className="container relative z-10 mx-auto max-w-6xl">
-        <h2 className="text-center text-4xl md:text-6xl font-black tracking-tight mb-6 text-white">
-          <span className="text-primary">CONTACT</span> COMMAND
-        </h2>
-        <p className="text-center text-muted-foreground mb-16 text-sm md:text-base leading-relaxed">
-          {"> SEND TRANSMISSION • COLLABORATE ON EPIC QUESTS"}
-        </p>
+      <p className="reveal-up delay-100 mb-8 text-center text-lg font-bold text-foreground md:text-2xl">
+        Let&apos;s build AI-powered and data-driven products together.
+      </p>
 
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.35fr)] items-stretch">
-          {/* Contact Information */}
-          <Card className="bg-card/70 backdrop-blur-md border border-primary/30 shadow-[0_25px_80px_rgba(15,23,42,0.8)] flex flex-col justify-between rounded-2xl">
-            <div>
-              <CardHeader className="pb-8 pt-8 px-8">
-                <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                  COMMUNICATION HUB
-                </CardTitle>
-                <p className="text-sm md:text-base text-muted-foreground mt-3 leading-relaxed">
-                  Always open to discussing new projects, creative ideas, and
-                  exciting opportunities.
-                </p>
-              </CardHeader>
+      <div className="grid items-stretch gap-6 lg:grid-cols-[1fr_1.25fr]">
+        <Card className="comic-panel panel-hover reveal-up delay-200 py-0">
+          <CardHeader className="border-b-[3px] border-black bg-primary py-5">
+            <CardTitle className="text-2xl text-black">
+              Data + AI Collaboration Hub
+            </CardTitle>
+          </CardHeader>
 
-              <CardContent className="space-y-7 pb-8 px-8">
-                <div className="space-y-5">
-                  <InfoRow
-                    icon={Mail}
-                    title="Email"
-                    value="ramoliya.shubham07@gmail.com"
-                  />
-                  <InfoRow
-                    icon={Phone}
-                    title="Phone"
-                    value={"+91 76000 65064"}
-                  />
-                  <InfoRow
-                    icon={MapPin}
-                    title="Location"
-                    value="Jamnagar, Gujarat, India"
-                  />
-                </div>
-
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
-                <div>
-                  <p className="text-sm font-semibold text-muted-foreground mb-4 uppercase tracking-wider">
-                    Social Channels
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {socials.map((social, index) => (
-                      <a
-                        key={index}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-xs md:text-sm text-muted-foreground hover:text-primary-foreground hover:border-primary/60 hover:bg-gradient-to-br hover:from-primary/80 hover:to-secondary/80 transition-all shadow-[0_0_0_rgba(0,0,0,0)] hover:shadow-[0_0_35px_rgba(129,140,248,0.5)]"
-                      >
-                        <social.icon className="h-4 w-4" />
-                        <span>{social.label}</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
+          <CardContent className="space-y-6 p-6">
+            <div className="space-y-4">
+              <InfoRow
+                icon={Mail}
+                title="Email"
+                value="ramoliya.shubham07@gmail.com"
+              />
+              <InfoRow icon={Phone} title="Phone" value={"+91 76000 65064"} />
+              <InfoRow
+                icon={MapPin}
+                title="Location"
+                value="Jamnagar, Gujarat, India"
+              />
             </div>
 
-            <div className="px-8 pb-6 pt-2 text-xs md:text-sm text-muted-foreground/80 leading-relaxed">
-              <p>💌 Prefer email? I'll typically respond within 24 hours.</p>
-            </div>
-          </Card>
-
-          {/* Contact Form */}
-          <Card className="relative overflow-hidden rounded-2xl border border-primary/35 bg-gradient-to-b from-card/80 to-background/70 shadow-[0_28px_90px_rgba(15,23,42,0.9)]">
-            <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-            <CardHeader className="pb-2 pt-8 px-8">
-              <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                Send Message
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="px-8 pb-10 pt-5">
-              <form onSubmit={handleSubmit} className="space-y-7">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <Input
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="h-12 md:h-13 rounded-lg border border-primary/35 bg-primary/5 px-4 text-sm md:text-base tracking-wide placeholder:text-muted-foreground/60 focus-visible:border-primary/70 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-0"
-                  />
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="h-12 md:h-13 rounded-lg border border-primary/35 bg-primary/5 px-4 text-sm md:text-base tracking-wide placeholder:text-muted-foreground/60 focus-visible:border-primary/70 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-0"
-                  />
-                </div>
-
-                <Input
-                  name="subject"
-                  placeholder="Subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="h-12 md:h-13 rounded-lg border border-primary/35 bg-primary/5 px-4 text-sm md:text-base tracking-wide placeholder:text-muted-foreground/60 focus-visible:border-primary/70 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-0"
-                />
-
-                <Textarea
-                  name="message"
-                  placeholder="Tell me about your project..."
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="min-h-[160px] rounded-lg border border-primary/35 bg-primary/5 px-4 py-3 text-sm md:text-base tracking-wide placeholder:text-muted-foreground/60 focus-visible:border-primary/70 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-0 resize-none leading-relaxed"
-                />
-
-                <div className="space-y-2">
-                  <Button
-                    type="submit"
-                    disabled={status === "sending"}
-                    className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-gradient-to-r from-primary via-accent to-secondary px-6 h-12 md:h-13 text-sm md:text-base font-semibold text-primary-foreground shadow-[0_18px_55px_rgba(15,23,42,0.8)] transition-all hover:shadow-[0_22px_70px_rgba(15,23,42,0.9)]"
+            <div className="border-t-[3px] border-black pt-4">
+              <p className="mb-4 text-sm font-extrabold uppercase tracking-wide text-black">
+                Social Channels
+              </p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {socials.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="panel-hover icon-bop reveal-up flex items-center gap-3 border-[3px] border-black bg-white px-3 py-2 text-sm font-bold text-black shadow-[3px_3px_0_#000]"
+                    style={{ transitionDelay: `${220 + index * 80}ms` }}
                   >
-                    <span className="relative z-10">
-                      {status === "sending"
-                        ? "Sending..."
-                        : status === "success"
-                        ? "Message Sent!"
-                        : "Send Message"}
-                    </span>
-                  </Button>
+                    <social.icon className="h-4 w-4" />
+                    <span>{social.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-                  {status === "error" && (
-                    <p className="text-xs md:text-sm text-destructive text-center">
-                      Failed to send message. Please try again.
-                    </p>
-                  )}
-                  {status === "success" && (
-                    <p className="text-xs md:text-sm text-emerald-400 text-center">
-                      Thanks for reaching out! I'll get back to you soon.
-                    </p>
-                  )}
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
+        <Card className="comic-panel panel-hover reveal-up delay-300 py-0">
+          <CardHeader className="border-b-[3px] border-black bg-secondary py-5">
+            <CardTitle className="text-2xl text-black">
+              Discuss a Project
+            </CardTitle>
+          </CardHeader>
 
-        <div className="mt-16 text-center text-xs md:text-sm text-muted-foreground space-y-2">
-          <p>© 2025 Shubham Ramoliya. All rights reserved.</p>
-          <p>
-            Designed & Built With React, Tailwind CSS & A Passion For Gaming
-          </p>
-        </div>
+          <CardContent className="p-6">
+            <form
+              onSubmit={handleSubmit}
+              onKeyDown={(event) => {
+                if (
+                  event.key === "Enter" &&
+                  event.target?.tagName !== "TEXTAREA"
+                ) {
+                  event.preventDefault();
+                }
+              }}
+              className="space-y-4"
+            >
+              <div className="grid gap-4 md:grid-cols-2">
+                <Input
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="h-11 border-[3px] border-black bg-white px-3 text-sm font-semibold text-black placeholder:text-black/55 focus-visible:ring-0"
+                />
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="h-11 border-[3px] border-black bg-white px-3 text-sm font-semibold text-black placeholder:text-black/55 focus-visible:ring-0"
+                />
+              </div>
+
+              <Input
+                name="subject"
+                placeholder="Subject"
+                value={formData.subject}
+                onChange={handleChange}
+                required
+                className="h-11 border-[3px] border-black bg-white px-3 text-sm font-semibold text-black placeholder:text-black/55 focus-visible:ring-0"
+              />
+
+              <Textarea
+                name="message"
+                placeholder="Tell me about your data science, ML, AI, or full-stack project..."
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={6}
+                className="min-h-[150px] resize-none border-[3px] border-black bg-white px-3 py-2 text-sm font-semibold text-black placeholder:text-black/55 focus-visible:ring-0"
+              />
+
+              <div className="grid gap-3 md:grid-cols-[1fr_auto]">
+                <Input
+                  name="otp"
+                  inputMode="numeric"
+                  placeholder="Enter 6-digit OTP"
+                  value={otp}
+                  onChange={handleOtpChange}
+                  required
+                  className="h-11 border-[3px] border-black bg-white px-3 text-sm font-semibold text-black placeholder:text-black/55 focus-visible:ring-0"
+                />
+                <Button
+                  type="button"
+                  onClick={handleSendOtp}
+                  disabled={otpStatus === "sending" || otpCooldown > 0}
+                  className="comic-btn panel-hover h-11 bg-accent text-black"
+                >
+                  {otpStatus === "sending"
+                    ? "Sending OTP..."
+                    : otpCooldown > 0
+                      ? `Resend in ${otpCooldown}s`
+                      : "Send OTP"}
+                </Button>
+              </div>
+
+              {otpStatus === "sent" && (
+                <p className="text-center text-xs font-bold text-emerald-700">
+                  OTP sent! Check your inbox.
+                </p>
+              )}
+              {otpStatus === "error" && (
+                <p className="text-center text-xs font-bold text-destructive">
+                  {otpErrorMessage || "Failed to send OTP."}
+                </p>
+              )}
+
+              <Button
+                type="submit"
+                disabled={!canSubmit}
+                className="comic-btn panel-hover wiggle-hover h-12 w-full bg-primary text-black"
+              >
+                {status === "sending"
+                  ? "Sending..."
+                  : status === "success"
+                    ? "Message Sent!"
+                    : "Send Message"}
+              </Button>
+
+              {status === "error" && (
+                <p className="text-center text-sm font-bold text-destructive">
+                  {errorMessage || "Failed to send message. Please try again."}
+                </p>
+              )}
+              {status === "success" && (
+                <p className="text-center text-sm font-bold text-emerald-700">
+                  Thanks for reaching out! I&apos;ll get back to you soon.
+                </p>
+              )}
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mt-10 border-t-[3px] border-black pt-5 text-center text-sm font-bold text-foreground/80">
+        <p>(c) 2026 Shubham Ramoliya. All rights reserved.</p>
       </div>
     </section>
   );
@@ -233,15 +402,15 @@ export default function Contact() {
 
 function InfoRow({ icon: Icon, title, value }) {
   return (
-    <div className="flex items-center gap-4">
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-[0_18px_35px_rgba(15,23,42,0.9)]">
-        <Icon className="h-5 w-5" />
+    <div className="flex items-center gap-3">
+      <div className="float-slower flex h-10 w-10 items-center justify-center border-[3px] border-black bg-accent text-black shadow-[3px_3px_0_#000]">
+        <Icon className="h-4 w-4" />
       </div>
       <div>
-        <p className="text-xs uppercase tracking-wide text-muted-foreground">
+        <p className="text-xs font-extrabold uppercase tracking-wide text-black/70">
           {title}
         </p>
-        <p className="text-sm md:text-base font-medium text-card-foreground">
+        <p className="text-sm font-bold text-card-foreground md:text-base">
           {value}
         </p>
       </div>

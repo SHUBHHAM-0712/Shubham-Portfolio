@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card.jsx";
-import { Button } from "@/components/ui/button.jsx";
 import {
   Calendar,
   MapPin,
@@ -29,6 +28,15 @@ export default function Archievement() {
         "Participated in a humanitarian project in collaboration with an NGO, helping to organize and distribute essential items such as food, clothing, and blankets to families in need across needy areas, reaching and supporting over 200+ individuals.",
       tags: ["Social Work", "Team Collaboration", "Humanitarian Aid"],
     },
+     {
+      period: "Feb 2026",
+      title: "Tata Group Data Analytics Simulation (Forage)",
+      organization: "Job Simulation on 'theforage.com'",
+      location: "Remote",
+      description:
+        "Performed EDA using GenAI tools to identify data quality issues and risk indicators. Developed no-code predictive framework for customer delinquency risk assessment. Designed AI-based collections strategy with automation, compliance, and ethical AI.",
+      tags: ["Data Analytics" , "GenAI" , "Predictive Modeling"],
+    },
   ];
 
   const educationItems = [
@@ -38,7 +46,7 @@ export default function Archievement() {
       organization: "Dhirubhai Ambani University (Formerly DA-IICT)",
       location: "Gandhinagar, Gujarat, India",
       description:
-        "Current coursework includes Data Structures and Algorithms, DBMS, Design and Analysis of Algorithms, OOPs, and Introduction to ICT.",
+        "Current coursework includes Data Structures, DBMS, Probability & Statistics, core AI/ML concepts, and software engineering fundamentals.",
       score: "Score: 7.11 CPI",
     },
     {
@@ -64,118 +72,101 @@ export default function Archievement() {
   const items = isExperience ? experienceItems : educationItems;
 
   return (
-    <section id="resume" className="relative py-24 px-4 bg-muted/10">
-      <div className="container mx-auto max-w-5xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-white">
-            <span className="text-primary">CAREER</span> PROFILE
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-            Professional journey, qualifications, and achievements
-          </p>
+    <section id="resume" className="section-wrap">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <span className="comic-chip chip-hover reveal-up">Resume</span>
+        <a
+          href="https://drive.google.com/file/d/1rP2WXL8K4NKpVnkR_fz8l62dUFaFJZDi/view?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="comic-btn panel-hover wiggle-hover reveal-up delay-100 bg-secondary text-black"
+        >
+          <ExternalLink className="h-4 w-4" /> View Resume
+        </a>
+      </div>
 
-          <div className="mt-10 flex justify-center">
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 shadow-[0_0_25px_rgba(147,51,234,0.4)] text-base font-semibold"
-              asChild
-            >
-              <a
-                href="https://drive.google.com/file/d/1sdPVo_dUxLG2BMHkmiqIXyzmWM0ABvvd/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ExternalLink className="mr-2 h-5 w-5" /> VIEW RESUME
-              </a>
-            </Button>
-          </div>
-
-          <div className="mt-12 inline-flex rounded-xl bg-background/50 p-1.5 border border-primary/25">
-            <button
-              type="button"
-              onClick={() => setActiveTab("experience")}
-              className={`px-7 py-2.5 text-sm font-semibold rounded-lg transition-all flex items-center gap-2.5 ${
-                isExperience
-                  ? "bg-primary text-primary-foreground shadow-[0_0_18px_rgba(147,51,234,0.5)]"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <BriefcaseIcon className="h-4 w-4" /> EXPERIENCE
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("education")}
-              className={`px-7 py-2.5 text-sm font-semibold rounded-lg transition-all flex items-center gap-2.5 ${
-                !isExperience
-                  ? "bg-primary text-primary-foreground shadow-[0_0_18px_rgba(147,51,234,0.5)]"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <GraduationCap className="h-4 w-4" /> EDUCATION
-            </button>
-          </div>
+      <div className="comic-panel reveal-up delay-200 p-2 md:p-3">
+        <div className="flex flex-wrap gap-2 border-[3px] border-black bg-white p-2">
+          <button
+            type="button"
+            onClick={() => setActiveTab("experience")}
+            className={`chip-hover inline-flex items-center gap-2 border-[3px] border-black px-4 py-2 text-sm font-extrabold uppercase transition-colors ${
+              isExperience ? "bg-primary text-black" : "bg-white text-black"
+            }`}
+          >
+            <BriefcaseIcon className="h-4 w-4" /> Experience
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("education")}
+            className={`chip-hover inline-flex items-center gap-2 border-[3px] border-black px-4 py-2 text-sm font-extrabold uppercase transition-colors ${
+              !isExperience ? "bg-primary text-black" : "bg-white text-black"
+            }`}
+          >
+            <GraduationCap className="h-4 w-4" /> Education
+          </button>
         </div>
 
-        <div className="mt-12 relative">
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-primary/30" />
+        <div className="relative mt-6 pl-4 md:pl-8">
+          <div className="absolute left-1.5 top-0 h-full w-[3px] bg-black md:left-4" />
 
-          <div className="space-y-10">
+          <div className="space-y-6">
             {items.map((item, index) => (
-              <div key={index} className="relative flex gap-6 items-stretch">
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_rgba(147,51,234,0.8)] mt-1.5" />
-                  <div className="flex-1" />
+              <div
+                key={index}
+                className="reveal-up relative pl-5 md:pl-7"
+                style={{ transitionDelay: `${120 + index * 110}ms` }}
+              >
+                <div className="absolute left-0 top-4 h-3 w-3 border-[2px] border-black bg-primary md:left-0.5" />
+
+                <div className="chip-hover mb-3 inline-flex items-center border-[2px] border-black bg-secondary px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-black">
+                  <Calendar className="mr-2 h-3.5 w-3.5" />
+                  {isExperience ? item.period : item.periodLabel}
                 </div>
 
-                <div className="mt-[-2px]">
-                  <div className="inline-flex items-center rounded-lg bg-primary/15 text-secondary px-4 py-1.5 text-xs mb-4 font-semibold uppercase tracking-wide">
-                    <Calendar className="h-3.5 w-3.5 mr-2" />
-                    {isExperience ? item.period : item.periodLabel}
-                  </div>
+                <Card className="comic-panel panel-hover py-0">
+                  <CardHeader className="border-b-[3px] border-black bg-primary py-4">
+                    <CardTitle className="text-xl font-extrabold text-black md:text-2xl">
+                      {item.title}
+                    </CardTitle>
+                  </CardHeader>
 
-                  <Card className="bg-card/70 border border-primary/30 shadow-[0_18px_45px_rgba(15,23,42,0.7)] hover:shadow-[0_20px_50px_rgba(15,23,42,0.8)] transition-shadow">
-                    <CardContent className="p-7 md:p-8">
-                      <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between mb-4">
-                        <h3 className="text-xl md:text-2xl font-bold text-white">
-                          {item.title}
-                        </h3>
-                        {"score" in item && (
-                          <span className="text-xs md:text-sm font-bold text-emerald-400 uppercase tracking-wider">
-                            {item.score}
-                          </span>
-                        )}
-                      </div>
+                  <CardContent className="space-y-4 p-6">
+                    <div className="flex flex-wrap gap-3 text-sm font-bold text-foreground/90">
+                      <span className="chip-hover inline-flex items-center gap-2 border-[2px] border-black bg-white px-3 py-1">
+                        <GraduationCap className="h-4 w-4" />
+                        {item.organization}
+                      </span>
+                      <span className="chip-hover inline-flex items-center gap-2 border-[2px] border-black bg-white px-3 py-1">
+                        <MapPin className="h-4 w-4" />
+                        {item.location}
+                      </span>
+                    </div>
 
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
-                        <span className="inline-flex items-center gap-1.5">
-                          <GraduationCap className="h-4 w-4 text-secondary flex-shrink-0" />
-                          {item.organization}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                          <MapPin className="h-4 w-4 text-secondary flex-shrink-0" />
-                          {item.location}
-                        </span>
-                      </div>
+                    <p className="text-sm leading-relaxed text-foreground/85 md:text-base">
+                      {item.description}
+                    </p>
 
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                        {item.description}
+                    {"score" in item && (
+                      <p className="chip-hover inline-flex border-[2px] border-black bg-[#b6e4d8] px-3 py-1 text-sm font-extrabold text-black">
+                        {item.score}
                       </p>
+                    )}
 
-                      {"tags" in item && item.tags?.length > 0 && (
-                        <div className="flex flex-wrap gap-2.5">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs px-4 py-1.5 rounded-lg bg-primary/15 text-primary border border-primary/30 font-medium"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </div>
+                    {"tags" in item && item.tags?.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {item.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="chip-hover border-[2px] border-black bg-accent px-3 py-1 text-xs font-bold text-black"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
               </div>
             ))}
           </div>

@@ -2,140 +2,111 @@ import { Card, CardContent } from "@/components/ui/card.jsx";
 import { User, Code, Trophy, Zap } from "lucide-react";
 
 export default function About() {
+  const labelTones = [
+    "bg-primary",
+    "bg-secondary",
+    "bg-accent",
+    "bg-[#b6e4d8]",
+  ];
+
   const stats = [
     {
       icon: User,
-      label: "Level",
-      value: "Pre-Final Year B.Tech Student",
+      label: "Current Role",
+      value: "Focusing on AI-integrated systems and software engineering",
     },
     {
       icon: Code,
-      label: "Class",
-      value: "Full-Stack Developer / Software Engineer",
+      label: "Core Focus",
+      value:
+        "Specializing in Next.js, Java-Springboot, and Python-based machine learning.",
     },
     {
       icon: Trophy,
-      label: "XP",
-      value: "Multiple Projects & Internships",
+      label: "Highlights",
+      value: "AI-enabled projects, data workflows, and internships",
     },
     {
       icon: Zap,
       label: "Status",
-      value: "Ready for New Quests",
+      value: "Actively building AI-driven and full-stack products",
     },
   ];
 
   return (
-    <section id="about" className="relative py-24 px-4">
-      <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-6xl font-black text-center mb-6 text-white">
-          <span className="text-primary">PLAYER</span> PROFILE
-        </h2>
-        <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-          {"> CHARACTER STATS LOADED • READY FOR ADVENTURE"}
-        </p>
+    <section id="about" className="section-wrap pt-2">
+      <div className="mb-6">
+        <span className="comic-chip chip-hover reveal-up">About</span>
+      </div>
 
-        <div className="flex justify-center mb-16 px-2 sm:px-0">
-          <Card className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-primary/60 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.3)] w-full max-w-sm">
-            <CardContent className="p-6 sm:p-8 text-center">
-              <div className="relative inline-block mb-6">
-                <div className="absolute -inset-3 bg-gradient-to-r from-primary via-secondary to-accent rounded-lg blur opacity-40 animate-pulse"></div>
-                <img
-                  src="/shubham2.JPG"
-                  alt="Shubham Ramoliya"
-                  width={300}
-                  height={180}
-                  className="rounded-lg border-2 border-primary/50 relative shadow-[0_0_20px_rgba(147,51,234,0.3)]"
-                  loading="lazy"
-                />
+      <Card className="comic-panel panel-hover reveal-up delay-100 py-0">
+        <CardContent className="space-y-6 p-6 text-base md:p-8 md:text-lg">
+          <p className="reveal-up delay-200">
+            I am a
+            <span className="chip-hover ml-2 inline-block border-[2px] border-black bg-secondary px-2 py-0.5 font-bold text-black">
+              Full-Stack Developer
+            </span>
+            dedicated to building scalable, end-to-end web applications. I
+            specialize in
+            <span className="chip-hover ml-2 inline-block border-[2px] border-black bg-primary px-2 py-0.5 font-bold text-black">
+              Java Spring Boot
+            </span>
+            and the
+            <span className="chip-hover ml-2 inline-block border-[2px] border-black bg-accent px-2 py-0.5 font-bold text-black">
+              MERN/Next.js
+            </span>
+            stack, with a focus on integrating intelligent features like
+            <span className="chip-hover ml-2 inline-block border-[2px] border-black bg-[#b6e4d8] px-2 py-0.5 font-bold text-black">
+              AI assistants
+            </span>
+            and automated data pipelines into modern products.
+          </p>
+
+          <p className="reveal-up delay-300">
+            From architecting
+            <span className="chip-hover ml-2 inline-block border-[2px] border-black bg-primary px-2 py-0.5 font-bold text-black">
+              real-time collaboration platforms
+            </span>
+            to designing responsive, cross-device UIs, I thrive on the challenge
+            of building secure, high-performance systems. I bridge the gap
+            between complex backend logic and seamless user experiences,
+            ensuring every product I ship is both technically robust and
+            user-centric.
+          </p>
+
+          <p className="reveal-up delay-400">
+            Driven by a
+            <span className="chip-hover ml-2 inline-block border-[2px] border-black bg-secondary px-2 py-0.5 font-bold text-black">
+              product mindset
+            </span>
+            and an algorithmic approach to problem-solving, I aim to build
+            functional software that solves real-world problems with precision.
+          </p>
+        </CardContent>
+      </Card>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat, index) => (
+          <Card
+            key={stat.label}
+            className="comic-panel panel-hover reveal-up group py-0"
+            style={{ transitionDelay: `${140 + index * 90}ms` }}
+          >
+            <CardContent className="p-5">
+              <div className="mb-4 flex items-center justify-between">
+                <span
+                  className={`chip-hover border-[2px] border-black px-2 py-1 text-xs font-extrabold uppercase text-black ${labelTones[index % labelTones.length]}`}
+                >
+                  {stat.label}
+                </span>
+                <stat.icon className="h-5 w-5 text-black transition-transform duration-200 group-hover:scale-110" />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                SHUBHAM RAMOLIYA
-              </h3>
-              <p className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider font-mono">
-                Level: Pre-Final Year • XP: +5000
+              <p className="text-sm font-semibold leading-relaxed text-foreground md:text-base">
+                {stat.value}
               </p>
             </CardContent>
           </Card>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {stats.map((stat, index) => (
-            <Card
-              key={index}
-              className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-secondary/50 transition-all hover:shadow-[0_0_20px_rgba(147,51,234,0.2)] group"
-            >
-              <CardContent className="p-6 text-center">
-                <stat.icon className="h-8 w-8 mx-auto mb-4 text-primary group-hover:text-secondary transition-colors" />
-                <div className="text-xs text-muted-foreground uppercase mb-2 font-mono tracking-wider">
-                  {stat.label}
-                </div>
-                <div className="text-sm font-semibold text-foreground leading-relaxed">
-                  {stat.value}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* <Card className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all">
-          <CardContent className="p-8">
-            <h3 className="text-2xl font-bold mb-4 text-primary">
-              Player Stats
-            </h3>
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span>React.js</span>
-                  <span className="text-primary">95%</span>
-                </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full w-[95%] bg-primary shadow-[0_0_10px_rgba(147,51,234,0.8)] animate-slideRight" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span>Node.js & Express</span>
-                  <span className="text-secondary">90%</span>
-                </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full w-[90%] bg-secondary shadow-[0_0_10px_rgba(6,182,212,0.8)] animate-slideRight delay-100" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span>Python & AI/ML</span>
-                  <span className="text-accent">85%</span>
-                </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full w-[85%] bg-accent shadow-[0_0_10px_rgba(236,72,153,0.8)] animate-slideRight delay-200" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span>DBMS & SQL</span>
-                  <span className="text-neon-green">88%</span>
-                </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full w-[88%] bg-neon-green shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-slideRight delay-300" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span>C++ Programming</span>
-                  <span className="text-primary">92%</span>
-                </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full w-[92%] bg-primary shadow-[0_0_10px_rgba(147,51,234,0.8)] animate-slideRight delay-400" />
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card> */}
+        ))}
       </div>
     </section>
   );

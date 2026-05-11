@@ -6,135 +6,142 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card.jsx";
-import { Button } from "@/components/ui/button.jsx";
 import { ExternalLink, Github, Lock } from "lucide-react";
 
 export default function Projects() {
+  const stripTones = [
+    "bg-primary",
+    "bg-secondary",
+    "bg-accent",
+    "bg-[#b6e4d8]",
+  ];
+
   const projects = [
     {
-      level: "LEVEL 01",
+      level: "PROJECT 01",
       title: "Portfolio Website",
       description:
-        "Gaming-themed portfolio showcasing projects and skills with modern animations and interactions.",
+        "Personal portfolio highlighting my Data Science, AI/ML, and Full-Stack journey with interactive storytelling and modern UI motion.",
       tech: ["React.js", "Email.js", "Framer Motion", "Tailwind", "Vite"],
       github: "https://github.com/SHUBHHAM-0712/Shubham-Portfolio",
       live: "#",
       locked: false,
     },
     {
-      level: "LEVEL 02",
+      level: "PROJECT 02",
       title: "Clssync - Virtual Classroom Platform",
       description:
-        "Developed a virtual classroom platform with AI-powered doubt solving, quiz generation, and chat assistance. Implemented role-based authentication, real-time communication (chats, announcements, file sharing), and assignment management with a responsive, user-friendly interface for seamless online learning.",
+        "Developed a virtual classroom platform using Next.js and MongoDB with AI doubt solver, quiz generator, and chat assistant with a responsive UI for seamless cross-device learning experience. Implemented role-based authentication, real-time chat, assignments, and collaboration features.",
       tech: ["Next.js", "Firebase", "MongoDB", "GenAI", "Socket.io"],
       github: "https://github.com/SHUBHHAM-0712/Classync",
       live: "https://classync2025.vercel.app/",
       locked: false,
     },
     {
-      level: "LEVEL 03",
+      level: "PROJECT 03",
       title: "TwinTrail",
       description:
-        "Collaborative project management tool with real-time updates, team features, and analytics.",
+        "Collaborative project platform with real-time updates and analytics-focused insights to support better team decisions.",
       tech: ["React.js", "Vite", "Leaflet", "Tailwind"],
       github: "https://github.com/SHUBHHAM-0712/TwinTrails",
       live: "https://twintrails.vercel.app/",
       locked: false,
     },
     {
-      level: "LEVEL 04",
-      title: "Word Cloud Generator",
+      level: "PROJECT 04",
+      title: "Skillify",
       description:
-        "Built a word cloud generator where I first wrote a C++ program to count word frequencies, and then used a Python script to turn that frequency map into a word cloud image. Kept both parts independent but linked them in workflow.",
-      tech: ["C++", "Python"],
-      github: "https://github.com/SHUBHHAM-0712/Word-Cloude-Generator",
-      live: "#",
-      locked: true,
+        "Skillify is a full-stack freelancer network where people build career momentum by shipping real projects with the right team.",
+      tech: [
+        "MongoDB",
+        "React.js",
+        "Express.js",
+        "Node.js",
+        "JWT",
+        "Node Mailer",
+      ],
+      github: "https://github.com/SHUBHHAM-0712/Skillify",
+      live: "https://skillify-app.onrender.com/",
+      locked: false,
     },
   ];
 
   return (
-    <section id="projects" className="relative py-24 px-4 bg-muted/10">
-      <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-6xl font-black text-center mb-6 text-white">
-          <span className="text-primary">QUEST</span> ARCHIVE
-        </h2>
-        <p className="text-center text-muted-foreground mb-16 text-sm md:text-base">
-          {"> EMBARK ON EPIC JOURNEYS • EXPLORE LEGENDARY PROJECTS"}
+    <section id="projects" className="section-wrap">
+      <div className="mb-6 flex items-end justify-between gap-4">
+        <span className="comic-chip chip-hover reveal-up">Projects</span>
+        <p className="scribble reveal-up delay-100 hidden text-3xl font-bold text-foreground md:block">
+          Selected work
         </p>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="bg-card/60 backdrop-blur-sm border-primary/30 hover:border-secondary/50 transition-all hover:shadow-[0_0_30px_rgba(147,51,234,0.3)] group relative overflow-hidden"
+      <div className="grid gap-5 md:grid-cols-2">
+        {projects.map((project, index) => (
+          <Card
+            key={index}
+            className="comic-panel panel-hover reveal-up group relative overflow-hidden py-0"
+            style={{ transitionDelay: `${120 + index * 110}ms` }}
+          >
+            {project.locked && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/70 backdrop-blur-[1px]">
+                <Lock className="h-12 w-12 animate-pulse text-white" />
+              </div>
+            )}
+
+            <CardHeader
+              className={`border-b-[3px] border-black py-4 ${stripTones[index % stripTones.length]}`}
             >
-              {project.locked && (
-                <div className="absolute inset-0 bg-background/90 backdrop-blur-sm flex items-center justify-center z-10">
-                  <Lock className="h-12 w-12 text-muted-foreground" />
-                </div>
-              )}
+              <div className="mb-2 text-xs font-black uppercase tracking-[0.12em] text-black/80">
+                {project.level}
+              </div>
+              <CardTitle className="text-xl font-extrabold text-black md:text-2xl">
+                {project.title}
+              </CardTitle>
+            </CardHeader>
 
-              <CardHeader>
-                <div className="text-xs text-secondary mb-3 font-mono uppercase tracking-wider">
-                  {project.level}
-                </div>
-                <CardTitle className="text-xl md:text-2xl text-white group-hover:text-secondary transition-colors font-bold">
-                  {project.title}
-                </CardTitle>
-              </CardHeader>
+            <CardContent className="space-y-5">
+              <p className="text-sm leading-relaxed text-foreground/85">
+                {project.description}
+              </p>
 
-              <CardContent className="space-y-5">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-xs px-3 py-1.5 bg-primary/15 text-primary border border-primary/30 rounded-full font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex gap-3 pt-3">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-primary/50 text-primary hover:bg-primary/10 bg-transparent text-xs font-semibold"
-                    asChild
+              <div className="flex flex-wrap gap-2">
+                {project.tech.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="chip-hover border-[2px] border-black bg-white px-3 py-1 text-xs font-bold text-black"
                   >
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="h-4 w-4 mr-2" />
-                      Code
-                    </a>
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold"
-                    asChild
-                  >
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Live Demo
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3 pb-3 pt-2">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="comic-btn panel-hover icon-bop wiggle-hover bg-white text-black"
+                >
+                  <Github className="h-4 w-4" />
+                  Code
+                </a>
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`comic-btn panel-hover icon-bop wiggle-hover text-black ${
+                    project.locked
+                      ? "pointer-events-none bg-muted opacity-60"
+                      : "bg-secondary"
+                  }`}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Live Demo
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </section>
   );
