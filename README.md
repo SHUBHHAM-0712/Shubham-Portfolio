@@ -57,12 +57,12 @@ src/
 ### Prerequisites
 
 - Node.js (LTS recommended)
-- pnpm, npm, or yarn (examples use **pnpm**)
+- npm (examples use **npm**)
 
 ### Install dependencies
 
 ```bash
-pnpm install
+npm install
 ```
 
 ### Environment setup
@@ -72,12 +72,10 @@ Copy `.env.example` → `.env` and fill in your values.
 ### Start the development server
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 This runs Vite + the local Express API (for dev only).
-
-````
 
 Then open http://localhost:5173 in your browser.
 
@@ -101,13 +99,13 @@ This project includes Vercel Serverless Functions under `/api` for OTP and conta
 ### Build for production
 
 ```bash
-pnpm build
-````
+npm run build
+```
 
 ### Preview the production build
 
 ```bash
-pnpm preview
+npm run preview
 ```
 
 ## 📫 Contact Form + OTP Configuration
@@ -135,7 +133,7 @@ The contact page uses a **server-side EmailJS** flow with OTP verification.
 
 4. Start the app:
 
-- `pnpm dev`
+- `npm run dev`
 
 ## 🎯 Customization
 
@@ -151,10 +149,10 @@ The contact page uses a **server-side EmailJS** flow with OTP verification.
 
 From `package.json`:
 
-- `pnpm dev` – Run Vite + local API.
-- `pnpm build` – Build the app for production.
-- `pnpm preview` – Preview the production build.
-- `pnpm lint` – Run ESLint over the project.
+- `npm run dev` – Run Vite + local API.
+- `npm run build` – Build the app for production.
+- `npm run preview` – Preview the production build.
+- `npm run lint` – Run ESLint over the project.
 
 ## 🧪 Future Improvements (Ideas)
 
