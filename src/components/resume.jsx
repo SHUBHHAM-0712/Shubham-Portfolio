@@ -13,6 +13,7 @@ import {
   ExternalLink,
   GraduationCap,
   Briefcase as BriefcaseIcon,
+  Trophy,
 } from "lucide-react";
 
 export default function Archievement() {
@@ -47,7 +48,7 @@ export default function Archievement() {
       location: "Gandhinagar, Gujarat, India",
       description:
         "Current coursework includes Data Structures, DBMS, Probability & Statistics, core AI/ML concepts, and software engineering fundamentals.",
-      score: "Score: 7.11 CPI",
+      score: "Score: 7.2 CPI",
     },
     {
       periodLabel: "2022 - 2023",
@@ -68,8 +69,39 @@ export default function Archievement() {
     },
   ];
 
-  const isExperience = activeTab === "experience";
-  const items = isExperience ? experienceItems : educationItems;
+  const achievementsItems = [
+    {
+      periodLabel: "Programming",
+      title: "Codeforces Specialist & LeetCode Knight",
+      organization: "Codeforces & LeetCode",
+      location: "Global",
+      description: "Achieved Specialist rating (1434 max) on Codeforces and Knight badge (1956 max, Top 3%) on LeetCode.",
+      tags: ["Competitive Programming", "DSA", "Problem Solving"],
+    },
+    {
+      periodLabel: "2023",
+      title: "JEE Mains - All India Rank 5241",
+      organization: "National Testing Agency",
+      location: "India",
+      description: "Secured an All India Rank of 5241 in the highly competitive JEE Mains examination with a 99.56 Percentile.",
+      tags: ["JEE Mains", "Top Percentile"],
+    },
+    {
+      periodLabel: "2023",
+      title: "ACPC All Gujarat Rank 63",
+      organization: "Admission Committee for Professional Courses",
+      location: "Gujarat, India",
+      description: "Achieved an outstanding All Gujarat Rank of 63. Also secured 99.65 PR in GHSEB and 99.92 PR in GUJCET.",
+      tags: ["ACPC", "GUJCET", "State Topper"],
+    },
+  ];
+
+  const items =
+    activeTab === "experience"
+      ? experienceItems
+      : activeTab === "education"
+        ? educationItems
+        : achievementsItems;
 
   return (
     <section id="resume" className="section-wrap">
@@ -91,7 +123,7 @@ export default function Archievement() {
             type="button"
             onClick={() => setActiveTab("experience")}
             className={`chip-hover inline-flex items-center gap-2 border-[3px] border-black px-4 py-2 text-sm font-extrabold uppercase transition-colors ${
-              isExperience ? "bg-primary text-black" : "bg-white text-black"
+              activeTab === "experience" ? "bg-primary text-black" : "bg-white text-black"
             }`}
           >
             <BriefcaseIcon className="h-4 w-4" /> Experience
@@ -100,10 +132,19 @@ export default function Archievement() {
             type="button"
             onClick={() => setActiveTab("education")}
             className={`chip-hover inline-flex items-center gap-2 border-[3px] border-black px-4 py-2 text-sm font-extrabold uppercase transition-colors ${
-              !isExperience ? "bg-primary text-black" : "bg-white text-black"
+              activeTab === "education" ? "bg-primary text-black" : "bg-white text-black"
             }`}
           >
             <GraduationCap className="h-4 w-4" /> Education
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("achievements")}
+            className={`chip-hover inline-flex items-center gap-2 border-[3px] border-black px-4 py-2 text-sm font-extrabold uppercase transition-colors ${
+              activeTab === "achievements" ? "bg-primary text-black" : "bg-white text-black"
+            }`}
+          >
+            <Trophy className="h-4 w-4" /> Achievements
           </button>
         </div>
 
@@ -121,7 +162,7 @@ export default function Archievement() {
 
                 <div className="chip-hover mb-3 inline-flex items-center border-[2px] border-black bg-secondary px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-black">
                   <Calendar className="mr-2 h-3.5 w-3.5" />
-                  {isExperience ? item.period : item.periodLabel}
+                  {item.period || item.periodLabel}
                 </div>
 
                 <Card className="comic-panel panel-hover py-0">

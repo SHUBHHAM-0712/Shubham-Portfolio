@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Textarea } from "@/components/ui/textarea.jsx";
-import { Github, Linkedin, Mail, Twitter, Phone, MapPin } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter, Phone, MapPin, Heart } from "lucide-react";
 import { sendContactMessage, sendOtp } from "@/services/contactService";
 
 const RATE_LIMIT_STORAGE_KEY = "contact_form_timestamps";
@@ -230,7 +230,7 @@ export default function Contact() {
         <Card className="comic-panel panel-hover reveal-up delay-200 py-0">
           <CardHeader className="border-b-[3px] border-black bg-primary py-5">
             <CardTitle className="text-2xl text-black">
-              Data + AI Collaboration Hub
+              Get in Touch
             </CardTitle>
           </CardHeader>
 
@@ -393,8 +393,10 @@ export default function Contact() {
         </Card>
       </div>
 
-      <div className="mt-10 border-t-[3px] border-black pt-5 text-center text-sm font-bold text-foreground/80">
-        <p>(c) 2026 Shubham Ramoliya. All rights reserved.</p>
+      <div className="mt-10 flex items-center justify-center gap-1.5 border-t-[3px] border-black pt-5 text-sm font-bold text-foreground/80">
+        <p>Built with</p>
+        <Heart className="h-4 w-4 animate-pulse fill-red-500 text-red-500" />
+        <p>by Shubham Ramoliya</p>
       </div>
     </section>
   );

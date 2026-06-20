@@ -19,19 +19,19 @@ export default function Projects() {
   const projects = [
     {
       level: "PROJECT 01",
-      title: "Portfolio Website",
+      title: "InternNova",
       description:
-        "Personal portfolio highlighting my Data Science, AI/ML, and Full-Stack journey with interactive storytelling and modern UI motion.",
-      tech: ["React.js", "Email.js", "Framer Motion", "Tailwind", "Vite"],
-      github: "https://github.com/SHUBHHAM-0712/Shubham-Portfolio",
-      live: "#",
+        "InternNova is an AI-powered career platform that connects students and professionals with internships and job opportunities. It streamlines the hiring process through AI-driven resume screening, application tracking, and skill-based matching, helping candidates discover relevant opportunities while enabling companies to identify top talent efficiently.",
+      tech: ["React.js", "Spring Boot", "MongoDB", "GenAI", "Tailwind CSS"],
+      github: "https://github.com/SHUBHHAM-0712/InternNova",
+      live: "https://internnova.vercel.app/",
       locked: false,
     },
     {
       level: "PROJECT 02",
-      title: "Clssync - Virtual Classroom Platform",
+      title: "Classync - Virtual Classroom Platform",
       description:
-        "Developed a virtual classroom platform using Next.js and MongoDB with AI doubt solver, quiz generator, and chat assistant with a responsive UI for seamless cross-device learning experience. Implemented role-based authentication, real-time chat, assignments, and collaboration features.",
+      "Developed a virtual classroom platform using Next.js and MongoDB with AI doubt solver, quiz generator, and chat assistant with a responsive UI for seamless cross-device learning experience. Implemented role-based authentication, real-time chat, assignments, and collaboration features.",
       tech: ["Next.js", "Firebase", "MongoDB", "GenAI", "Socket.io"],
       github: "https://github.com/SHUBHHAM-0712/Classync",
       live: "https://classync2025.vercel.app/",
@@ -39,19 +39,19 @@ export default function Projects() {
     },
     {
       level: "PROJECT 03",
-      title: "TwinTrail",
+      title: "AI-Powered Fitness Tracker - Microservice App",
       description:
-        "Collaborative project platform with real-time updates and analytics-focused insights to support better team decisions.",
-      tech: ["React.js", "Vite", "Leaflet", "Tailwind"],
-      github: "https://github.com/SHUBHHAM-0712/TwinTrails",
-      live: "https://twintrails.vercel.app/",
+        "Developed an AI-powered Fitness Tracker microservice application using Spring Boot and React.js, enabling users to track activities, monitor fitness progress, and receive AI-driven insights. Implemented secure authentication and authorization with Keycloak, adopted a microservices architecture, and integrated RabbitMQ for asynchronous communication between AI and Activity services to ensure scalable and efficient data processing.",
+      tech: ["Spring Boot","React.js", "RabbitMQ", "Keycloak"], 
+      github: "https://github.com/SHUBHHAM-0712/AI-Fitness-Tracker-Microservice-App",
+      live: "https://github.com/SHUBHHAM-0712/AI-Fitness-Tracker-Microservice-App",
       locked: false,
     },
     {
       level: "PROJECT 04",
       title: "Skillify",
       description:
-        "Skillify is a full-stack freelancer network where people build career momentum by shipping real projects with the right team.",
+        "Skillify is a full-stack freelancer networking platform that connects individuals with real-world projects and like-minded teammates. It enables users to collaborate, showcase their skills, build strong portfolios, and gain practical experience to accelerate their career growth.",
       tech: [
         "MongoDB",
         "React.js",
