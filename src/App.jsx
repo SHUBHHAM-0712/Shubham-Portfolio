@@ -57,8 +57,8 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-[#cfcfcf] text-foreground">
-      <main className="relative mx-auto w-full max-w-[1240px] px-3 pb-16 pt-6 md:px-5 md:pt-7">
-        <div className="comic-shell overflow-hidden">
+      <main className="relative mx-auto w-full max-w-[2240px] px-3 pb-16 pt-6 md:px-5 md:pt-7 xl:pl-[200px] xl:pr-8">
+        <div className="comic-shell">
           <Navigation />
           <Hero />
           <About />

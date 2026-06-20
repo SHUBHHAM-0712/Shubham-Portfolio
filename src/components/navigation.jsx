@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button.jsx";
 const navLinks = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  { id: "projects", label: "Journey" },
+  { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "resume", label: "Resume" },
   { id: "contact", label: "Contact" },
@@ -120,27 +120,27 @@ export default function Navigation() {
         })}
       </div>
 
-      <nav className="relative z-50 px-3 pb-3 pt-6 md:px-5 md:pt-7">
-        <div className="mx-auto w-full border-[3px] border-black bg-primary px-3 py-2 shadow-[8px_8px_0_#000] transition-all duration-200">
-          <div className="flex items-center justify-between gap-3">
+      <nav className="sticky top-0 z-[70] px-3 pb-3 pt-6 md:px-5 md:pt-7 xl:fixed xl:left-0 xl:top-0 xl:bottom-0 xl:w-[180px] xl:p-0">
+        <div className="mx-auto w-full max-w-6xl border-[3px] border-black bg-primary px-3 py-2 shadow-[8px_8px_0_#000] transition-all duration-200 xl:h-full xl:w-full xl:max-w-none xl:rounded-none xl:border-l-0 xl:border-y-0 xl:border-r-[3px] xl:p-4 xl:shadow-[6px_0_0_#000]">
+          <div className="flex items-center justify-between gap-3 xl:h-full xl:flex-col xl:items-stretch xl:justify-start xl:gap-6">
             <button
               type="button"
               onClick={() => scrollToSection("home")}
-              className="panel-hover icon-bop inline-flex h-11 w-11 items-center justify-center border-[3px] border-black bg-secondary text-base font-extrabold uppercase tracking-wide text-black shadow-[3px_3px_0_#000]"
+              className="panel-hover icon-bop inline-flex h-11 w-11 items-center justify-center border-[3px] border-black bg-secondary text-base font-extrabold uppercase tracking-wide text-black shadow-[3px_3px_0_#000] xl:mx-auto xl:h-16 xl:w-16 xl:text-xl"
             >
               SR
             </button>
 
-            <div className="hidden md:flex flex-1 items-center justify-center gap-2 lg:gap-3">
+            <div className="hidden md:flex flex-1 items-center justify-center gap-2 lg:gap-3 xl:flex-col xl:flex-none xl:items-stretch xl:gap-4">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   type="button"
                   onClick={() => scrollToSection(link.id)}
-                  className={`chip-hover border-[2px] border-transparent px-3 py-1 text-sm font-extrabold uppercase tracking-wide transition-colors ${
+                  className={`chip-hover border-[2px] px-3 py-1 text-sm font-extrabold uppercase tracking-wide transition-colors xl:border-black xl:py-2.5 ${
                     activeSection === link.id
                       ? "border-black bg-black text-primary"
-                      : "text-black hover:border-black hover:bg-white/70"
+                      : "border-transparent text-black hover:border-black hover:bg-white/70 xl:bg-white"
                   }`}
                 >
                   {link.label}
@@ -148,14 +148,14 @@ export default function Navigation() {
               ))}
             </div>
 
-            <div className="hidden items-center gap-2 md:flex">
-              <span className="chip-hover float-slower border-[3px] border-black bg-white px-3 py-2 text-sm font-semibold text-black shadow-[3px_3px_0_#000]">
-                <span className="scribble text-xl">Creator Mode</span>
+            <div className="hidden items-center gap-2 md:flex xl:mt-auto xl:w-full xl:flex-col xl:gap-4">
+              <span className="chip-hover float-slower border-[3px] border-black bg-white px-2 py-2 text-sm font-semibold text-black shadow-[3px_3px_0_#000] xl:w-full xl:text-center">
+                <span className="scribble text-lg xl:text-xl">Creator Mode</span>
               </span>
               <button
                 type="button"
                 onClick={() => scrollToSection("contact")}
-                className="comic-btn wiggle-hover bg-secondary px-4 py-2 text-black"
+                className="comic-btn wiggle-hover bg-secondary px-2 py-2 text-black xl:w-full xl:py-3 xl:text-sm"
               >
                 Get in Touch!
               </button>
