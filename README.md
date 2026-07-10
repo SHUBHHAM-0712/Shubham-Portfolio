@@ -1,165 +1,292 @@
-# Shubham Ramoliya – Developer Portfolio
+<div align="center">
 
-A modern developer portfolio built with React, Vite, and Tailwind CSS. The site presents projects with clear sections, smooth animations, and a layout optimized for readability.
+# 👋 Shubham Ramoliya — Developer Portfolio
+
+### `< Full-Stack Engineer • Java Spring Boot & MERN Developer • Product Builder />`
+
+<br/>
+
+[![Live Site](https://img.shields.io/badge/🔗_Live_Site-portfolio.ramoliya--shubham.dev-FFD43B?style=for-the-badge)](https://portfolio.ramoliya-shubham.dev/)
+
+<br/>
+
+[![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+</div>
+
+<br/>
+
+## ⚡ What Is This?
+
+A personal developer portfolio with a **neo-brutalist comic-style** design — bold borders, punchy colors, hover animations, and thick shadows. Not your typical minimal portfolio. This one has *personality*.
+
+Built as a full-stack app with a **React + Vite** frontend and a **Node.js/Express** backend powering a secure contact form with **OTP email verification** via MongoDB.
+
+<br/>
 
 ## 🧩 Features
 
-- **Project showcase layout** – Projects are presented with badges, tags, and clear CTAs.
-- **Section-based navigation** – Home, About, Projects, Skills, Resume, and Contact pages with keyboard-like navigation between sections.
-- **Responsive design** – Fully responsive layout that works on desktops, tablets, and phones.
-- **Contact form with OTP verification** – Secure contact flow using server-side EmailJS + MongoDB TTL.
-- **Shadcn UI + Radix primitives** – Accessible, composable UI components styled for clarity and consistency.
-- **Polished visual design** – Subtle background texture, defined panels, and animated accents.
+| | Feature | Description |
+|:---:|---|---|
+| 🎨 | **Neo-Brutalist UI** | Bold 3px borders, comic panels, thick box-shadows, warm palette (yellow, cyan, pink, mint) |
+| ✍️ | **Typewriter Hero** | Animated typing effect with floating decorative elements and tilted photo card |
+| 📂 | **Project Showcase** | Cards with color-coded headers, tech tags, GitHub + Live Demo links |
+| 🛠️ | **Skills Grid** | Categorized chips across 6 domains — Programming, Frameworks, Web, Databases, ML, Tools |
+| 📄 | **Resume Timeline** | Tabbed view (Experience / Education / Achievements) with vertical timeline & certificate links |
+| 📧 | **OTP-Verified Contact** | Server-side EmailJS + MongoDB TTL for OTP codes and rate limiting |
+| 🏆 | **Coding Profiles** | Direct buttons linking to Codeforces & LeetCode profiles |
+| 🎭 | **Micro-Animations** | Scroll reveals, hover wiggles, floating elements, chip interactions |
+| 📱 | **Fully Responsive** | Optimized for desktop, tablet, and mobile viewports |
 
-## 🛠 Tech Stack
+<br/>
 
-- **Frontend:** React 19, React Router
-- **Build Tool:** Vite
-- **Styling:** Tailwind CSS, custom CSS variables, tw-animate-css
-- **UI Components:** shadcn/ui, Radix UI, lucide-react icons
-- **Forms & Validation:** React Hook Form, Zod (via @hookform/resolvers)
-- **API:** Vercel Serverless Functions (OTP + contact)
-- **Database:** MongoDB (TTL collections for OTP + rate limit)
-- **Email:** EmailJS REST API (server-side)
+## 🛠️ Tech Stack
+
+<table>
+  <tr>
+    <td><strong>Frontend</strong></td>
+    <td>React 19 · React Router · Vite</td>
+  </tr>
+  <tr>
+    <td><strong>Styling</strong></td>
+    <td>Tailwind CSS 4 · Custom CSS Variables · tw-animate-css · Google Fonts (Bungee, Nunito, Caveat)</td>
+  </tr>
+  <tr>
+    <td><strong>UI Components</strong></td>
+    <td>shadcn/ui · Radix UI · Lucide Icons</td>
+  </tr>
+  <tr>
+    <td><strong>Forms</strong></td>
+    <td>React Hook Form · Zod validation</td>
+  </tr>
+  <tr>
+    <td><strong>Backend / API</strong></td>
+    <td>Node.js · Express (dev) · Vercel Serverless Functions (prod)</td>
+  </tr>
+  <tr>
+    <td><strong>Database</strong></td>
+    <td>MongoDB (TTL collections for OTP)</td>
+  </tr>
+  <tr>
+    <td><strong>Email</strong></td>
+    <td>EmailJS REST API (server-side)</td>
+  </tr>
+</table>
+
+<br/>
+
+## 🎨 Design System
+
+The portfolio uses a custom **neo-brutalist** design language:
+
+| Token | Color | Usage |
+|:---:|---|---|
+| `--primary` | 🟡 Yellow | Card headers, highlight chips, timeline dots |
+| `--secondary` | 🔵 Cyan | Buttons, social links, accent borders |
+| `--accent` | 🔴 Pink | Tags, skill categories, decorative elements |
+| `#b6e4d8` | 🟢 Mint | Score badges, special highlights |
+| `--background` | ⬜ Warm White | Page background with subtle texture |
+| `--border` | ⬛ Black | Bold 3px borders on all panels |
+
+**Typography:**
+- **Bungee** — Bold, blocky display font for headings
+- **Nunito** — Clean, rounded sans-serif for body text
+- **Caveat** — Handwritten style for decorative scribbles
+
+<br/>
 
 ## 📂 Project Structure
 
-```text
-api/              # Vercel serverless functions
-  send-otp.js
-  send-contact.js
-  verify-otp.js
-  _utils/
-server/           # Shared DB/models/email helpers used by API
-  config/
-  models/
-  utils/
-src/
-  App.jsx           # Routing and page layout
-  main.jsx          # React entry point
-  index.css         # Tailwind + custom theme tokens
-  components/
-    hero.jsx        # Landing hero section
-    about.jsx       # About section
-    projects.jsx    # Projects section
-    skills.jsx      # Skills section
-    resume.jsx      # Experience & education timeline
-    contact.jsx     # Contact page + form
-    ui/             # Reusable UI components (button, card, input, etc.)
-  hooks/            # Custom hooks (mobile menu, toast)
-  lib/              # Utilities
-  services/
-    contactService.ts # Client → API helpers
 ```
+Shubham-Portfolio/
+│
+├── 📡 api/                       → Vercel serverless functions
+│   ├── send-otp.js
+│   ├── send-contact.js
+│   ├── verify-otp.js
+│   └── _utils/
+│
+├── 🖥️ server/                    → Local dev API (Express)
+│   ├── config/                   → DB connection
+│   ├── models/                   → Mongoose schemas
+│   └── utils/                    → Email helpers
+│
+├── 📦 src/
+│   ├── App.jsx                   → Root layout & section routing
+│   ├── main.jsx                  → React entry point
+│   ├── index.css                 → Tailwind config + theme tokens
+│   │
+│   ├── 🧱 components/
+│   │   ├── hero.jsx              → Landing hero with typewriter
+│   │   ├── about.jsx             → About me + stat cards
+│   │   ├── projects.jsx          → Project showcase grid
+│   │   ├── skills.jsx            → Skills categories
+│   │   ├── resume.jsx            → Experience / Education / Achievements
+│   │   ├── contact.jsx           → Contact form with OTP
+│   │   ├── navigation.jsx        → Header + mobile menu
+│   │   └── ui/                   → Reusable UI primitives (shadcn)
+│   │
+│   ├── hooks/                    → Custom React hooks
+│   ├── lib/                      → Utility functions
+│   └── services/                 → API client helpers
+│
+├── 🌐 public/                    → Static assets & images
+├── package.json
+└── vite.config.js
+```
+
+<br/>
+
+## 🔮 Featured Projects
+
+| # | Project | Description | Stack |
+|:---:|---|---|---|
+| 01 | [**InternNova**](https://intern-nova.in/) | AI-powered career platform for internships & jobs | React · Spring Boot · MongoDB · GenAI |
+| 02 | [**Classync**](https://classync2025.vercel.app/) | Virtual classroom with AI doubt solver & quiz generator | Next.js · Firebase · MongoDB · Socket.io |
+| 03 | [**AI Fitness Tracker**](https://github.com/SHUBHHAM-0712/AI-Fitness-Tracker-Microservice-App) | Microservice fitness app with AI insights | Spring Boot · React · RabbitMQ · Keycloak |
+| 04 | [**Skillify**](https://skillify-app.onrender.com/) | Full-stack freelancer networking platform | MERN · JWT · Nodemailer |
+
+<br/>
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (LTS recommended)
-- npm (examples use **npm**)
+- **Node.js** v18+ LTS
+- **npm** (comes with Node.js)
+- **MongoDB** connection string (for OTP feature)
 
-### Install dependencies
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/SHUBHHAM-0712/Shubham-Portfolio.git
+cd Shubham-Portfolio
+```
+
+### 2️⃣ Install dependencies
 
 ```bash
 npm install
 ```
 
-### Environment setup
+### 3️⃣ Environment setup
 
-Copy `.env.example` → `.env` and fill in your values.
+Copy `.env.example` → `.env` and fill in your values:
 
-### Start the development server
+```env
+# MongoDB
+MONGODB_URI=your_mongodb_connection_string
+
+# EmailJS — OTP Account
+EMAILJS_OTP_SERVICE_ID=...
+EMAILJS_OTP_TEMPLATE_ID=...
+EMAILJS_OTP_PUBLIC_KEY=...
+EMAILJS_OTP_PRIVATE_KEY=...
+
+# EmailJS — Contact Account
+EMAILJS_CONTACT_SERVICE_ID=...
+EMAILJS_TEMPLATE_ID=...
+EMAILJS_AUTOREPLY_TEMPLATE_ID=...
+EMAILJS_CONTACT_PUBLIC_KEY=...
+EMAILJS_CONTACT_PRIVATE_KEY=...
+```
+
+### 4️⃣ Start development server
 
 ```bash
 npm run dev
 ```
 
-This runs Vite + the local Express API (for dev only).
+> This starts **both** Vite + Express concurrently. Open **http://localhost:5173**
 
-Then open http://localhost:5173 in your browser.
+<br/>
 
-## ☁️ Deploy to Vercel (Option 1: Serverless API)
+## ☁️ Deployment (Vercel)
 
-This project includes Vercel Serverless Functions under `/api` for OTP and contact.
+1. Push your repo to GitHub
+2. Import in [Vercel](https://vercel.com)
+3. Add all `.env` variables to **Project Settings → Environment Variables**
+4. Set `VITE_API_BASE_URL` to **empty** (frontend calls `/api` on same domain)
+5. Enable **API access from non-browser environments** in both EmailJS accounts
+6. Deploy 🚀
 
-1. Push the repo to GitHub.
-2. Import it in Vercel.
-3. In Vercel → Project Settings → Environment Variables, add:
-   - `MONGODB_URI`
-   - `EMAILJS_OTP_SERVICE_ID`, `EMAILJS_OTP_TEMPLATE_ID`
-   - `EMAILJS_OTP_PUBLIC_KEY`, `EMAILJS_OTP_PRIVATE_KEY`
-   - `EMAILJS_CONTACT_SERVICE_ID`
-   - `EMAILJS_TEMPLATE_ID`, `EMAILJS_AUTOREPLY_TEMPLATE_ID`
-   - `EMAILJS_CONTACT_PUBLIC_KEY`, `EMAILJS_CONTACT_PRIVATE_KEY`
-4. Ensure `VITE_API_BASE_URL` is **empty** (so the frontend calls `/api` on the same domain).
-5. In EmailJS (both accounts): enable **API access from non-browser environments**.
-6. Deploy.
+<br/>
 
-### Build for production
+## 📧 Contact Form — OTP Flow
 
-```bash
-npm run build
+```
+  User enters email
+        │
+        ▼
+  ┌─────────────┐     ┌──────────┐     ┌─────────┐
+  │  Request OTP │────▶│  MongoDB │────▶│ EmailJS │
+  │  /api/send   │     │  (store) │     │ (send)  │
+  └─────────────┘     └──────────┘     └────┬────┘
+                                            │
+        ┌───────────────────────────────────┘
+        ▼
+  User receives & enters OTP
+        │
+        ▼
+  ┌─────────────┐     ┌──────────────────────┐
+  │ Verify OTP   │────▶│ Send contact email + │
+  │ /api/verify  │     │ auto-reply to user   │
+  └─────────────┘     └──────────────────────┘
 ```
 
-### Preview the production build
+**Setup:** Requires two EmailJS accounts — one for OTP, one for contact + auto-reply.
 
-```bash
-npm run preview
-```
+<br/>
 
-## 📫 Contact Form + OTP Configuration
+## ✏️ Customization Guide
 
-The contact page uses a **server-side EmailJS** flow with OTP verification.
+| What to change | Where to edit |
+|---|---|
+| Colors & Theme | `src/index.css` — `:root` CSS custom properties |
+| Fonts | `src/index.css` — Google Fonts import + `@theme` block |
+| About / Bio | `src/components/about.jsx` |
+| Projects | `src/components/projects.jsx` — `projects` array |
+| Skills | `src/components/skills.jsx` — `skillCategories` array |
+| Experience & Certs | `src/components/resume.jsx` — `experienceItems` array |
+| Education | `src/components/resume.jsx` — `educationItems` array |
+| Achievements | `src/components/resume.jsx` — `achievementsItems` array |
+| Social Links | `src/components/hero.jsx` — `socialLinks` array |
+| Profile Photo | `public/shubham2.JPG` |
 
-1. Create two EmailJS accounts:
+<br/>
 
-- Account A: OTP service + OTP template
-- Account B: Contact + Auto-reply templates
+## 📦 Available Scripts
 
-2. Create a `.env` file (copy from `.env.example`) and fill in:
+| Command | Description |
+|---|---|
+| `npm run dev` | Start Vite + Express dev server (concurrently) |
+| `npm run dev:client` | Start only the Vite frontend |
+| `npm run dev:server` | Start only the Express API |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint checks |
 
-- `MONGODB_URI`
-- `EMAILJS_OTP_SERVICE_ID`, `EMAILJS_OTP_TEMPLATE_ID`
-- `EMAILJS_OTP_PUBLIC_KEY`, `EMAILJS_OTP_PRIVATE_KEY` (Account A for OTP)
-- `EMAILJS_CONTACT_SERVICE_ID`
-- `EMAILJS_TEMPLATE_ID`, `EMAILJS_AUTOREPLY_TEMPLATE_ID`
-- `EMAILJS_CONTACT_PUBLIC_KEY`, `EMAILJS_CONTACT_PRIVATE_KEY` (Account B for contact)
+<br/>
 
-3. In EmailJS templates:
+## 📜 License
 
-- Main contact template **To Email** = your email
-- Auto-reply template **To Email** = `{{email}}`
+This is a personal portfolio project. You're welcome to reference the structure, design patterns, and ideas — but please don't copy personal content (text, images, or identity) directly.
 
-4. Start the app:
+---
 
-- `npm run dev`
+<div align="center">
 
-## 🎯 Customization
+**Built with ☕ and bold borders by [Shubham Ramoliya](https://github.com/SHUBHHAM-0712)**
 
-- **Colors & Theme:**
-  - All key colors (background, primary, secondary, accent) live in `src/index.css` under the `:root` CSS variables.
-- **Fonts:**
-  - Body text uses a clean, readable font.
-  - Headings use a bold display font for hierarchy.
-- **Sections & Content:**
-  - Update text and project details inside the components in `src/components/`.
+[![GitHub](https://img.shields.io/badge/GitHub-SHUBHHAM--0712-181717?style=flat-square&logo=github)](https://github.com/SHUBHHAM-0712)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Shubham_Ramoliya-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/ramoliya-shubham-288707329)
+[![Email](https://img.shields.io/badge/Email-ramoliya.shubham07@gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:ramoliya.shubham07@gmail.com)
 
-## 📦 Scripts
+⭐ **Star this repo if you found it useful!**
 
-From `package.json`:
-
-- `npm run dev` – Run Vite + local API.
-- `npm run build` – Build the app for production.
-- `npm run preview` – Preview the production build.
-- `npm run lint` – Run ESLint over the project.
-
-## 🧪 Future Improvements (Ideas)
-
-- Add more micro-interactions and scroll reveals.
-- Add theme toggle (light / dark variants).
-- Add analytics to track section visits and clicks.
-
-## 📝 License
-
-This is a personal portfolio project. You are welcome to reference the structure and ideas, but please avoid copying content (text, images, identity) directly.
+</div>
