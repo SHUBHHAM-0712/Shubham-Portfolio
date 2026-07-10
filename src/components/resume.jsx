@@ -37,6 +37,17 @@ export default function Archievement() {
       description:
         "Performed EDA using GenAI tools to identify data quality issues and risk indicators. Developed no-code predictive framework for customer delinquency risk assessment. Designed AI-based collections strategy with automation, compliance, and ethical AI.",
       tags: ["Data Analytics" , "GenAI" , "Predictive Modeling"],
+      link: "https://www.theforage.com/completion-certificates/ifobHAoMjQs9s6bKS/gMTdCXwDdLYoXZ3wG_ifobHAoMjQs9s6bKS_697a6cd04fbf8c8be5eef621_1770923801876_completion_certificate.pdf", // Add your credential link here
+    },
+    {
+      period: "Certificate",
+      title: "AWS Cloud Practitioner Essentials",
+      organization: "Amazon Web Services (AWS)",
+      location: "Online",
+      description:
+        "Completed the AWS Cloud Practitioner Essentials training, gaining an overall understanding of the AWS Cloud platform, covering basic cloud concepts, AWS services, security, architecture, pricing, and support.",
+      tags: ["AWS", "Cloud Computing"],
+      link: "https://drive.google.com/file/d/1ErAh-EEY2IKDJVEFyLPRnLbpemCpL7BB/view?usp=sharing", // Add your credential link here
     },
   ];
 
@@ -77,6 +88,10 @@ export default function Archievement() {
       location: "Global",
       description: "Achieved Specialist rating (1434 max) on Codeforces and Knight badge (1956 max, Top 3%) on LeetCode.",
       tags: ["Competitive Programming", "DSA", "Problem Solving"],
+      links: [
+        { url: "https://codeforces.com/profile/shubham_0712", label: "Codeforces" }, // Add your Codeforces profile link here
+        { url: "https://leetcode.com/u/RSS0712/", label: "LeetCode" }    // Add your LeetCode profile link here
+      ],
     },
     {
       periodLabel: "2023",
@@ -182,6 +197,29 @@ export default function Archievement() {
                         <MapPin className="h-4 w-4" />
                         {item.location}
                       </span>
+                      {item.link && (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="chip-hover inline-flex items-center gap-2 border-[2px] border-black bg-[#ffd54f] px-3 py-1 hover:bg-[#ffc107]"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          View Certificate
+                        </a>
+                      )}
+                      {item.links && item.links.map((linkObj, idx) => (
+                        <a
+                          key={idx}
+                          href={linkObj.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="chip-hover inline-flex items-center gap-2 border-[2px] border-black bg-[#ffd54f] px-3 py-1 hover:bg-[#ffc107]"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          {linkObj.label}
+                        </a>
+                      ))}
                     </div>
 
                     <p className="text-sm leading-relaxed text-foreground/85 md:text-base">

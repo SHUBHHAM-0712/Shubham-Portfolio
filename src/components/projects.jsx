@@ -23,8 +23,8 @@ export default function Projects() {
       description:
         "InternNova is an AI-powered career platform that connects students and professionals with internships and job opportunities. It streamlines the hiring process through AI-driven resume screening, application tracking, and skill-based matching, helping candidates discover relevant opportunities while enabling companies to identify top talent efficiently.",
       tech: ["React.js", "Spring Boot", "MongoDB", "GenAI", "Tailwind CSS"],
-      github: "https://github.com/SHUBHHAM-0712/InternNova",
-      live: "https://internnova.vercel.app/",
+      github: "https://github.com/anshul755/InternNova",
+      live: "https://intern-nova.in/",
       locked: false,
     },
     {
@@ -33,7 +33,7 @@ export default function Projects() {
       description:
       "Developed a virtual classroom platform using Next.js and MongoDB with AI doubt solver, quiz generator, and chat assistant with a responsive UI for seamless cross-device learning experience. Implemented role-based authentication, real-time chat, assignments, and collaboration features.",
       tech: ["Next.js", "Firebase", "MongoDB", "GenAI", "Socket.io"],
-      github: "https://github.com/SHUBHHAM-0712/Classync",
+      github: "https://github.com/atik-7866/Classync-Virtual-Classroom-Platform",
       live: "https://classync2025.vercel.app/",
       locked: false,
     },
@@ -60,7 +60,7 @@ export default function Projects() {
         "JWT",
         "Node Mailer",
       ],
-      github: "https://github.com/SHUBHHAM-0712/Skillify",
+      github: "https://github.com/Shivam-S-Ramoliya/Skillify",
       live: "https://skillify-app.onrender.com/",
       locked: false,
     },
